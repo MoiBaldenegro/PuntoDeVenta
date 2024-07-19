@@ -1,0 +1,843 @@
+﻿<UserControl x:Class="Tomate.Views.Caja.CajaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Views.Caja" 
+             xmlns:componentsMenu="clr-namespace:Tomate.Components.Botones.Menu"
+             xmlns:componentsExtras="clr-namespace:Tomate.Components.Extras"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsDialogosCaja="clr-namespace:Tomate.Components.Dialogos.Caja"
+             xmlns:componentsDialogosVentaNotas="clr-namespace:Tomate.Components.Dialogos.Venta.Notas"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1200"
+             Background="#dddddd">
+    <Grid>
+        <DockPanel Grid.Column="0">
+            <Border BorderBrush="#eeeeee"
+                    BorderThickness="0,1,0,0"
+                    DockPanel.Dock="Bottom">
+                <UniformGrid Columns="{Binding TotalBotones}" Rows="1" 
+                         Background="#FFFFFF">
+
+
+                    <componentsMenu:BotonMenuImagen x:Name="AperturaCajaBoton" 
+                                                    Titulo="{Binding CajaCorteTitulo}" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_caja_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="AperturaCajaBoton_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen x:Name="EntradasSalidasBoton" 
+                                                    Titulo="Entradas / Salidas" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_dinero_entradas_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="EntradasSalidasEfectivo_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen x:Name="ArqueoBoton" 
+                                                    Titulo="Arqueo" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_arqueo_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="ArqueoBoton_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen Titulo="Atrás" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_atras_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="BotonAtras_Click"/>
+
+                </UniformGrid>
+
+            </Border>
+
+            <Grid DockPanel.Dock="Top" >
+                <componentsExtras:Header Usuario="{Binding Usuario}">
+                    <Grid>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                            Height="60"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Center">
+                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#FFFFFF" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Text="Caja"/>
+                        </StackPanel>
+                    </Grid>
+                </componentsExtras:Header>
+            </Grid>
+
+            <Grid>
+                <Grid Name="ContenidoControl" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="420"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="145"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type Grid}">
+                            <Setter Property="Margin" Value="15" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
+                      Margin="0,10,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="420"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Margin" Value="15,0" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <Border Grid.Column="0" Background="#FFFFFF"
+                            Padding="25,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <DockPanel>
+
+                                <Image Width="130"
+                                   DockPanel.Dock="Right"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Resources/Imagenes/logo_negro.png"/>
+
+                                <StackPanel DockPanel.Dock="Bottom">
+                                    <TextBlock  FontFamily="{StaticResource Roboto}"
+                                       Foreground="#333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Margin="0,0,0,2"
+                                       FontSize="12"
+                                       Text="Apertura de caja"/>
+                                    <TextBlock  FontFamily="{StaticResource Roboto}"
+                                       Foreground="#333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Margin="0,0,0,10"
+                                       FontSize="12"
+                                       Text="{Binding HoraAperturaCaja}"/>
+                                </StackPanel>
+
+
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333333" 
+                                       VerticalAlignment="Center"
+                                       FontSize="11"
+                                       Text="Encargado de caja"/>
+
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="25"
+                                       Text="{Binding EncargadoCaja}"/>
+                                </StackPanel>
+
+
+
+                            </DockPanel>
+                        </Border>
+                        <Border Grid.Column="1" Background="#fff"
+                            Padding="20, 15">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Margin="0,5,0,10"
+                                       Text="Caja inicial"/>
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Margin="0,2"
+                                       Text="{Binding CajaInicialFormato}"/>
+
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" Background="#FFFFFF"
+                           Padding="20, 15">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#555555" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Margin="0,5,0,10"
+                                       Text="Pagos en efectivo" />
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Margin="0,2"
+                                       Text="{Binding CajaPagosEfectivoFormato}"/>
+
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="3" Background="#FFFFFF"
+                            Padding="20, 15">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#555555" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Margin="0,5,0,10"
+                                       Text="Caja actual"/>
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Margin="0,2"
+                                       Text="{Binding CajaActualFormato}"/>
+
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="4" Background="#fc5656"
+                            Padding="20, 15">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#fff" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Margin="0,5,0,10"
+                                       Text="Ingresos totales"/>
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#fff" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Margin="0,2"
+                                       Text="{Binding CajaPagosFormato}"/>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.Row="1">
+
+                        <Border Background="#FFFFFF">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" Color="#999" Opacity="0.2" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0"
+                                    Padding="25,30,0,0">
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#333333" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="25"
+                                       Text="Resumen"/>
+                                </Border>
+
+                                <Border Grid.Row="1" DockPanel.Dock="Top"
+                                    Padding="25,30,25,0">
+                                    <StackPanel>
+                                        <DockPanel Margin="0,0,0,10">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333"           
+                                                   FontSize="18"
+                                                   Text="Resumen de caja"/>
+
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="18"
+                                                   Text="Importe"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="0,0,0,8">
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="Caja inicial"/>
+
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding CajaInicialFormato}"/>
+                                        </DockPanel>
+
+                                        <!--<DockPanel Margin="0,0,0,8">
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="Entradas de efectivo"/>
+
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding CajaEntradasFormato}"/>
+                                        </DockPanel>-->
+                                        <DockPanel Margin="0,0,0,8">
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="Movimientos de efectivo"/>
+
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding CajaMovimientosEfectivoFormato}"/>
+                                        </DockPanel>
+
+                                        <DockPanel Margin="0,0,0,8" Visibility="Collapsed">
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="Ajustes de caja"/>
+
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding CajaAjustesFormato}"/>
+                                        </DockPanel>
+
+                                        <DockPanel Margin="0,0,0,8">
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="Pagos en efectivo"/>
+
+                                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding CajaPagosEfectivoFormato}"/>
+                                        </DockPanel>
+
+
+                                        <Border BorderThickness="0,1,0,0"
+                                            Padding="0,10,0,0"
+                                            Margin="0,10,0,0"
+                                            BorderBrush="#f0f0f0">
+                                            <DockPanel Margin="0,0,0,10">
+                                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333"           
+                                                   FontSize="16"
+                                                   Text="Caja actual"/>
+
+                                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Text="{Binding CajaActualFormato}"/>
+                                            </DockPanel>
+                                        </Border>
+
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="2" DockPanel.Dock="Bottom"
+                                    Padding="25,20,25,0">
+                                    <StackPanel>
+                                        <DockPanel Margin="0,0,0,10">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333"           
+                                                   FontSize="18"
+                                                   Text="Pagos"/>
+
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="18"
+                                                   Text="Importe"/>
+                                        </DockPanel>
+                                        <ListView 
+                                      Background="Transparent"
+                                      ItemsSource="{Binding SumaFormasPagos}"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.PanningMode="Both"
+                                      ScrollViewer.CanContentScroll="False">
+                                            <ItemsControl.ItemContainerStyle>
+                                                <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                                </Style>
+                                            </ItemsControl.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel Margin="0,0,0,8">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#333333"           
+                                                   FontSize="14"
+                                                   Text="{Binding Nombre}"/>
+
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                   Foreground="#555555" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding TotalFormato}"/>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                        <Border BorderThickness="0,1,0,0"
+                                            Padding="0,10,0,0"
+                                            Margin="0,10,0,0"
+                                            BorderBrush="#f0f0f0">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333" 
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="18"
+                                                   Text="{Binding CajaPagosFormato}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Grid.Row="1">
+
+                        <DockPanel>
+
+                            <ListView x:Name="FormasPagoTabs" Background="Transparent"
+                                ItemsSource="{Binding FormasPagos}"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.PanningMode="Both"
+                                VerticalAlignment="Top"
+                                ScrollViewer.CanContentScroll="False"
+                                ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback"
+                                DockPanel.Dock="Top">
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Grid.Column="0"
+                                            Background="{Binding Background}" 
+                                            Cursor="Hand"
+                                            Height="50"
+                                            MouseLeftButtonUp="FormasPagoTabs_MouseLeftButtonDown">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                   Foreground="#333333" 
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"
+                                                   TextAlignment="Center"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding Nombre}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="5" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+
+                            <Grid Margin="0">
+                                <Border Background="#FFFFFF"
+                                            Margin="0,8,0,0"
+                                            Padding="10,0"
+                                        VerticalAlignment="Top"
+                                            Height="35">
+                                    <Grid Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Cajero"/>
+                                        </Border>
+                                        <Border Grid.Column="1">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Cuenta"/>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Forma pago"/>
+                                        </Border>
+                                        <Border Grid.Column="3">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Total"/>
+                                        </Border>
+                                        <Border Grid.Column="4">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Hora"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <ListView x:Name="VentasPagosListado"
+                                ItemsSource="{Binding VentasPagos}"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.PanningMode="Both"
+                                          Margin="0,43,0,0"
+                                ScrollViewer.CanContentScroll="False"                             
+                                ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Name="BorderBackground" Background="#FFFFFF"
+                                                    Cursor="Hand"
+                                            Margin="0,8,0,0"
+                                            Padding="10,0"
+                                            Height="45">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="13"
+                                                           Text="{Binding Cajero.CodigoAlias}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="1">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="13"
+                                                           Text="{Binding NumeroCuenta}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="2">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="13"
+                                                           Text="{Binding FormaPago}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="3">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="13"
+                                                           Text="{Binding ImporteFormato}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="4">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="13"
+                                                           Text="{Binding CreatedAtFormato}"/>
+                                                    </Border>
+                                                </Grid>
+
+                                                <Border.Triggers>
+                                                    <EventTrigger RoutedEvent="MouseDown">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                        From="#FFFFFF" To="#ffa9a9" 
+                                                                        Duration="0:0:0.1" AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </Border.Triggers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"           
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Visibility="{Binding NoPagos}"
+                                        Text="No hay pagos"/>
+                            </Grid>
+
+
+
+                        </DockPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.Row="1">
+
+
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top"
+                                Height="50"
+                                Background="#FFF">
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                        Foreground="#333333" 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="Ventas notas"/>
+                            </Border>
+
+                            <Grid Margin="0">
+                                <Border Background="#FFFFFF"
+                                            Margin="0,8,0,0"
+                                            Padding="10,0"
+                                        VerticalAlignment="Top"
+                                            Height="35">
+                                    <Grid Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Folio"/>
+                                        </Border>
+                                        <Border Grid.Column="1">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Cuenta"/>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Cajero"/>
+                                        </Border>
+                                        <Border Grid.Column="3">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Total"/>
+                                        </Border>
+                                        <Border Grid.Column="4">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Hora pago"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                <ListView Name="VentasNotasListado"
+                                Background="Transparent"
+                                ItemsSource="{Binding VentasNotas}"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.PanningMode="Both"
+                                ScrollViewer.CanContentScroll="False"
+                                    Margin="0,43,0,0"
+                                ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback"
+                                          PreviewMouseLeftButtonUp="VentasNotasListado_PreviewMouseLeftButtonUp">
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Name="BorderBackground" Background="#FFFFFF"
+                                                    Cursor="Hand"
+                                            Margin="0,8,0,0"
+                                            Padding="10,0"
+                                            Height="45">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding Folio}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="1">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding NumeroCuenta}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="2">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding Cajero.CodigoAlias}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="3">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding TotalFormato}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="4">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding HoraPagoFormato}"/>
+                                                    </Border>
+                                                </Grid>
+
+                                                <Border.Triggers>
+                                                    <EventTrigger RoutedEvent="MouseDown">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                        From="#FFFFFF" To="#ffa9a9" 
+                                                                        Duration="0:0:0.1" AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </Border.Triggers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+
+                        </DockPanel>
+
+                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"           
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Visibility="{Binding NoVentas}"
+                                        Text="No hay ventas"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Name="MaskAbrirCaja">
+                    <Border Background="White" Opacity="0.6"></Border>
+                    <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                        <Image Width="50" 
+                               Margin="0,0,0,10"
+                               Source="/Resources/Iconos/Nuevos/ic_caja_black.png"/>
+
+                        <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                    Foreground="#333333"           
+                                    FontSize="40"
+                                    Margin="0,0,0,20"
+                                   HorizontalAlignment="Center"
+                                    Text="Caja cerrada"/>
+
+
+                        
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            
+        </DockPanel>
+
+        <componentsDialogosVentaNotas:VentaNotaDetalleModal x:Name="VentaNotaDetalleModal"/>
+        <componentsDialogosCaja:MovimientosEfectivoModal x:Name="MovimientosEfectivoModal"/>
+    </Grid>
+</UserControl>

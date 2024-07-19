@@ -1,0 +1,239 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.ConfigurarModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <materialDesign:DialogHost Name="Dialogo" 
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="False"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="440" Height="500" Background="#01FFFFFF">
+                    <Border Background="#f9f9f9" MaxWidth="400" CornerRadius="15" 
+                            VerticalAlignment="Center">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel
+                            Orientation="Vertical"
+                            Height="Auto">
+
+                            <Border DockPanel.Dock="Top"
+                                    Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                
+                                <Grid>
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                               Foreground="#333333"
+                                               FontSize="22"
+                                               VerticalAlignment="Center"
+                                               Name="TituloModal"
+                                               Text="Configuración" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand" Width="65" Height="65"
+                                            Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                        Background="#FFFFFF"
+                                                        CornerRadius="50"
+                                                        BorderBrush="#CCCCCC">
+                                                    <Image Width="22" Height="22"  
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                            </Border>
+
+                            <StackPanel Margin="35,25,35,15">
+                                <Grid>
+                                    <TextBox FontFamily="{StaticResource Roboto}"
+                                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                                    Text="{Binding DireccionServidor}"
+                                    VerticalAlignment="Top"
+                                    FontSize="20"
+                                    Background="Transparent"
+                                         TextChanged="Direccion_TextChanged"
+                                    Padding="0,0,0,5"
+                                    materialDesign:HintAssist.Hint="Dirección IP del servidor"/>
+                                    <TextBlock FontFamily="{StaticResource Roboto}"
+                                            FontSize="15"
+                                            Foreground="Red"
+                                            Text="{Binding ErrorDireccion}" VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,0,0,-25"/>
+                                </Grid>
+
+                                <Grid Margin="0,15,0,0">
+                                    <TextBox FontFamily="{StaticResource Roboto}"
+                                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                                        VerticalAlignment="Top"
+                                        Text="{Binding TokenAcceso}"
+                                        FontSize="20"
+                                        Background="Transparent"
+                                        Padding="0,0,0,5"
+                                    Margin="0,20,0,0"
+                                         TextChanged="Token_TextChanged"
+                                        materialDesign:HintAssist.Hint="Token de acceso" />
+                                    <TextBlock FontFamily="{StaticResource Roboto}"
+                                            FontSize="15"
+                                            Foreground="Red"
+                                            Text="{Binding ErrorToken}" VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,0,0,-25"/>
+                                </Grid>
+
+                                <Viewbox Height="33" HorizontalAlignment="Left"
+                                     Margin="0,35,0,15">
+                                    <CheckBox Content="Abrir al iniciar Windows"
+                                          FontFamily="{StaticResource Roboto}"
+                                          Foreground="#333333"
+                                          IsChecked="{Binding RegistrarInicio}"
+                                          FontSize="10"
+                                          Style="{StaticResource MaterialDesignLightCheckBox}" />
+                                </Viewbox>
+
+                                <Grid x:Name="BorrarBaseDatosBoton" Margin="0,20,0,0">
+                                    <Button FontFamily="{StaticResource RobotoBold}"
+                                    Foreground="#fff" 
+                                    FontSize="18" HorizontalAlignment="Stretch"
+                                    Height="55"
+                                    VerticalAlignment="Stretch" Cursor="Hand"
+                                    Click="BorrarConfiguracion_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="BorderBackground" Padding="0,10,0,10"
+                                                Background="#999">
+                                                    <TextBlock Text="Borrar base de datos" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color" 
+                                                    From="#999" To="#ffa9a9" 
+                                                    Duration="0:0:0.1" 
+                                                    AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                                <Grid Margin="0,20,0,30">
+                                    <Button FontFamily="{StaticResource RobotoBold}"
+                                    Foreground="#FFFFFF" 
+                                    FontSize="18" HorizontalAlignment="Stretch"
+                                    Height="55"
+                                    VerticalAlignment="Stretch" Cursor="Hand"
+                                    Click="GuardarConfiguracion_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="BorderBackground" Padding="0,10,0,10"
+                                                Background="#fc5656">
+                                                    <TextBlock Text="GUARDAR" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color" 
+                                                    From="#fc5656" To="#ffa9a9" 
+                                                    Duration="0:0:0.1" 
+                                                    AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <Border Name="Loader"
+                                        Background="#fc5656"
+                                        Visibility="Collapsed"
+                                        Height="55">
+                                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                Foreground="#FFFFFF"
+                                                Width="30"
+                                                 VerticalAlignment="Center"
+                                                Height="30"
+                                                IsIndeterminate="True"
+                                                Value="0" />
+                                    </Border>
+
+                                    <TextBlock FontFamily="{StaticResource Roboto}"
+                                            FontSize="15"
+                                            Foreground="Red"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"
+                                            Text="{Binding ErrorGeneral}" VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,-40"/>
+
+                                </Grid>
+                                
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+
+    </Grid>
+</UserControl>

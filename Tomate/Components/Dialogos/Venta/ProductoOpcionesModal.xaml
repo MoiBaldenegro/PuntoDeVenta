@@ -1,0 +1,417 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Venta.ProductosOpcionesModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Venta"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="1600" d:DesignWidth="900">
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoProductoOpciones" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="False"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="400" Background="#01FFFFFF">
+                    <Border Background="#f9f9f9" CornerRadius="15" 
+                            VerticalAlignment="Center">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel Margin="0,0,0,0">
+
+                            <Border Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                           Foreground="#333333"
+                                           FontSize="19"
+                                           VerticalAlignment="Center"
+                                           Text="Opciones producto" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand" Width="65" Height="65"
+                                            Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                        Background="#FFFFFF"
+                                                        CornerRadius="50"
+                                                        BorderBrush="#CCCCCC">
+                                                    <Image Width="22" Height="22"  
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                            </Border>
+
+                            <StackPanel>
+                                <Button Name="BotonModificadores" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonModificadores_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center">
+                                                    <TextBlock Text="Modificadores" 
+                                                           Margin="0,5,0,0"
+                                                           HorizontalAlignment="Center"  />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    From="#00fffFFF" 
+                                                    To="#ffa9a9" 
+                                                    AutoReverse="True"
+                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Name="BotonExtras" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonExtras_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="Complementos" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    From="#00fffFFF" 
+                                                    To="#ffa9a9" 
+                                                    AutoReverse="True"
+                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Name="BotonReordenar" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonReordenar_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="Reordenar" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    From="#00fffFFF" 
+                                                    To="#ffa9a9" 
+                                                    AutoReverse="True"
+                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Name="BotonMoverMesa" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonTransferir_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="Mover a otra cuenta" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    From="#00fffFFF" 
+                                                    To="#ffa9a9" 
+                                                    AutoReverse="True"
+                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Button Name="BotonMoverNota" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonTransferirNota_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="Mover a otra nota" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                Storyboard.TargetProperty="Background.Color"
+                                                                From="#00fffFFF" 
+                                                                To="#ffa9a9" 
+                                                                AutoReverse="True"
+                                                                Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Button Name="BotonNoImprimir" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonNoImprimir_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="{Binding TituloImprimir}" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color"
+                                                                    From="#00fffFFF" 
+                                                                    To="#ffa9a9" 
+                                                                    AutoReverse="True"
+                                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                
+                                <Button Name="BotonAplicarDescuento" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonAplicarDescuento_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="Descuento" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                Storyboard.TargetProperty="Background.Color"
+                                                                From="#00fffFFF" 
+                                                                To="#ffa9a9" 
+                                                                AutoReverse="True"
+                                                                Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Button Name="BotonEliminar" FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333"
+                                        FontSize="19"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Height="75"
+                                        Cursor="Hand"
+                                        Click="BotonEliminar_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" Background="#00fffFFF"
+                                                    BorderBrush="#ccc" BorderThickness="0,1,0,0">
+                                                <TextBlock Name="TextoBotonEliminar" Text="Cancelar" 
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"  />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color"
+                                                                    From="#00fffFFF" 
+                                                                    To="#ffa9a9" 
+                                                                    AutoReverse="True"
+                                                                    Duration="0:0:0.1"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        
+                    </Border>
+
+                    <!--<Button Name="BotonCerrar" VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Cursor="Hand" Width="70" Height="70"
+                            Margin="0,-30,-30,0"
+                            Click="BotonCerrarModal_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Name="Ellipse" Padding="10"
+                                        Background="#FFFFFF"
+                                        CornerRadius="50"
+                                        BorderThickness="1"
+                                        BorderBrush="#CCCCCC">
+                                    <Image Width="25" Height="25" 
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>-->
+
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

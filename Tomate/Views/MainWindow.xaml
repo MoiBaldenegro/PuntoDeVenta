@@ -1,0 +1,233 @@
+﻿<Window x:Class="Tomate.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tomate.Views"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dialogos="clr-namespace:Tomate.Components.Dialogos"
+        xmlns:viewModels="clr-namespace:Tomate.ViewModels"
+        xmlns:componentsDialogosTeclado="clr-namespace:Tomate.Components.Dialogos.Teclado"
+        xmlns:componentsDialogosVenta="clr-namespace:Tomate.Components.Dialogos.Venta"
+        Height="800"
+        Width="1100"
+        WindowState="Maximized"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Icon="/Resources/Imagenes/icono.ico"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        WindowStartupLocation="CenterScreen"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Tomate"
+        Style="{StaticResource MaterialDesignWindow}" 
+        Cursor="Arrow"
+        Background="#dddddd"
+        IsTabStop="False">
+
+    <Grid>
+        <Grid x:Name="GeneralControl">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Content="{Binding VistaActualControl}" IsTabStop="False" Background="#f4f3f8" Cursor="Arrow"
+                            FocusVisualStyle="{x:Null}"
+                        Name="ContentControl" />
+
+            <dialogos:ConfigurarModal x:Name="ConfiguracionModal" />
+
+            <materialDesign:DialogHost Grid.Column="0"
+                                   Name="DialogoAlerta" 
+                                   DialogClosed="DialogoAlerta_DialogClosed"
+                                   DialogOpened="DialogoAlerta_DialogOpened"
+                                   CloseOnClickAway="True"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent">
+
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid MaxWidth="500">
+                        <Border CornerRadius="1" Background="White" BorderBrush="#cccccc" BorderThickness="1" Padding="10">
+                            <StackPanel Margin="16" Orientation="Vertical">
+                                <TextBlock Name="DialogoTitulo" Text="Cerrar programa"
+                               FontFamily="{StaticResource Roboto}"
+                               FontSize="30" Foreground="#333333"
+                               Margin="0,0,0,10">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DialogoTitulo.Text}" 
+                                                 Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+
+                                <TextBlock Name="DialogoDescripcion" 
+                               Text="¿Realmente deseas cerrar el programa?" 
+                                       Foreground="#333333"
+                               FontFamily="{StaticResource Roboto}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               Margin="0,5,0,0"
+                           FontSize="30" />
+
+                                <StackPanel Name="DialogoBotones" Orientation="Horizontal" Height="60" Margin="0,20,0,0"
+                                         HorizontalAlignment="Center">
+
+                                    <Button Name="DialogoCancelar" 
+                                        Width="200"
+                                        FontFamily="{StaticResource RobotoBold}"
+                                        Foreground="#333333" FontSize="20" 
+                                        HorizontalAlignment="Center"
+                                        Height="60"
+                                        Click="BotonCancelarDialogo_Click"
+                                        VerticalAlignment="Stretch" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="BorderBackground" Background="#ffffff" Padding="0,10,0,10">
+                                                    <TextBlock Text="CANCELAR" 
+                                                       HorizontalAlignment="Center"
+                                                           TextAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    From="#ffffff" To="#ffa9a9" 
+                                                                    Duration="0:0:0.1" 
+                                                                    AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <Button Name="DialogoAceptar" 
+                                        Width="200"
+                                        FontFamily="{StaticResource RobotoBold}"
+                                        Foreground="#fc5656" FontSize="20" 
+                                        HorizontalAlignment="Center"
+                                        Height="60"
+                                        VerticalAlignment="Stretch" Cursor="Hand"
+                                        Click="BotonAceptarDialogo_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="BorderBackground" Background="#ffffff" Padding="0,10,0,10" >
+                                                    <TextBlock Text="ACEPTAR" 
+                                                           TextAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    From="#ffffff" To="#ffa9a9" 
+                                                                    Duration="0:0:0.1" 
+                                                                    AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                </materialDesign:DialogHost.DialogContent>
+                <Border Name="DialogoAlertaBackground"
+                    Visibility="Collapsed"
+                    Background="White" Opacity="0.6"></Border>
+            </materialDesign:DialogHost>
+
+
+            <componentsDialogosTeclado:TecladoModal x:Name="TecladoGeneralModal"/>
+            <componentsDialogosTeclado:TecladoNumeroModal x:Name="TecladoNumeroGeneralModal"/>
+            <componentsDialogosTeclado:TecladoDescuentoModal x:Name="TecladoDescuentoGeneralModal"/>
+            <componentsDialogosVenta:VentaTiposModal x:Name="VentaTiposGeneralModal"/>
+
+
+            <materialDesign:Snackbar
+            x:Name="BarError"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Background="Red">
+                <materialDesign:SnackbarMessage
+                HorizontalAlignment="Center"
+                FontSize="20"
+                FontFamily="{StaticResource RobotoBold}"
+                Content="{Binding MensajeError}" />
+            </materialDesign:Snackbar>
+        </Grid>
+        <Grid x:Name="panelActualizando" Visibility="Collapsed">
+            <Border Background="White" Opacity="0.6"></Border>
+            <StackPanel Width="500" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock x:Name="TextoActualizar" Text="Actualizando punto de venta" 
+                       FontSize="20"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"
+                       Foreground="#333333"
+                       FontFamily="{StaticResource Roboto}" />
+                <ProgressBar x:Name="ActualizandoPuntoVenta" 
+                             Background="#ccc"
+                             BorderBrush="#ccc"
+                             Foreground="#fc5656"
+                             Minimum="0" Maximum="100" Value="0" />
+            </StackPanel>
+
+        </Grid>
+
+        <Border x:Name="NotificacionToast" 
+                Visibility="Collapsed"
+                Margin="0,0,0,40" MaxWidth="400" CornerRadius="20"
+                Padding="20,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" Background="#cc333333">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+            </Border.Effect>
+            <TextBlock x:Name="NotificacionToastTitulo" Text="La nota ya esta pagada" 
+                       FontSize="18" HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Foreground="#FFF"
+                       TextWrapping="Wrap"
+                       FontFamily="{StaticResource Roboto}" />
+        </Border>
+   
+    </Grid>
+
+
+</Window>

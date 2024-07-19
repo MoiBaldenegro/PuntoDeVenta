@@ -1,0 +1,178 @@
+﻿<UserControl x:Class="Tomate.Components.Productos.VentaProductoItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Productos"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:StringCollapse x:Key="StringCollapse"/>
+        <Utils:StringHidden x:Key="StringHidden"/>
+        <Utils:StringOpacity x:Key="StringOpacity"/>
+        <Utils:StringEnable x:Key="StringEnable"/>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Border Name="BorderBackground" 
+                Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"
+                Background="#01FFFFFF"
+                BorderBrush="#eeeeee" BorderThickness="0,0,0,2"
+                Cursor="Hand"
+                Padding="0,0,0,0"
+                PreviewStylusSystemGesture="Item_StylusSystemGesture">
+            <DockPanel Opacity="{Binding Path=Opacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}">
+                <Grid DockPanel.Dock="Left"
+                      Background="Transparent"
+                      MouseLeftButtonDown="EditarCantidad_MouseLeftButtonDown"
+                      Visibility="{Binding Path=VentaProductoPadreId, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringHidden}}">
+                    <Border DockPanel.Dock="Left" 
+                            Width="30"
+                            Height="30"
+                            Margin="10,10"
+                            BorderBrush="#dddddd" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="1"
+                            CornerRadius="12"
+                            Visibility="{Binding Path=TerminalId, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringHidden}}">
+                    </Border>
+                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="15"
+                               Text="{Binding Path=Cantidad, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"/>
+                </Grid>
+                <Border DockPanel.Dock="Right" Padding="0,0,15,0"
+                        MouseLeftButtonUp="Item_PreviewMouseLeftButtonUp"
+                        Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon 
+                            Width="20" Height="20" 
+                            Kind="PrinterOffOutline" VerticalAlignment="Center"
+                            Margin="10"
+                            Visibility="{Binding Path=Impimir, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                           Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="15"
+                           Text="{Binding Path=Importe, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"/>
+                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                   Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   TextDecorations="Strikethrough"
+                                   Visibility="{Binding Path=SubTotal, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}"
+                                   Text="{Binding Path=SubTotal, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    
+                </Border>
+                <Border Background="Transparent"
+                        MouseLeftButtonUp="Item_PreviewMouseLeftButtonUp">
+                    <StackPanel VerticalAlignment="Center"
+                            Margin="5,0,0,0">
+                        <DockPanel Margin="0,0,10,0"
+                               Width="250"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Left">
+                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                   Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                                   MaxWidth="170"
+                                   TextWrapping="Wrap"
+                                   FontSize="15"
+                                   Text="{Binding Path=Nombre, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"/>
+                            <Border Background="#333333" CornerRadius="6" Height="15"
+                                Margin="5,0,0,0"
+                                MinWidth="20"
+                                    Padding="5,0"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Visibility="{Binding Path=NumeroNota, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}">
+                                <TextBlock Text="{Binding Path=NumeroNota, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" FontFamily="{StaticResource Roboto}"
+                                       VerticalAlignment="Center"
+                                       FontSize="11"
+                                       Margin="0,-1,0,0"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#FFFFFF" />
+                            </Border>
+                        </DockPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Visibility="{Binding Path=HoraUsuario, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}">
+                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                               HorizontalAlignment="Left"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Margin="0,5,0,0"
+                               Text="{Binding Path=HoraUsuario, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"/>
+                            <materialDesign:PackIcon Kind="Send" Width="12" VerticalAlignment="Center" Margin="5,5,0,0" />
+                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                               HorizontalAlignment="Left"
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"
+                               Margin="2,5,0,0"
+                               Text="{Binding Path=NumeroOrden, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" />
+
+                            <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding Path=NumeroCuentaOrigen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}">
+                                <Image Width="12"
+                                   Margin="5,4,0,0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   Source="/Resources/Iconos/Nuevos/ic_mesas_black.png"/>
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                   Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                                   HorizontalAlignment="Left"
+                                   FontSize="11"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   Margin="2,5,0,0"
+                                   Text="{Binding Path=NumeroCuentaOrigen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" />
+                            </StackPanel>
+                            
+
+
+                        </StackPanel>
+                        
+                        <TextBlock FontFamily="{StaticResource Roboto}"
+                               Foreground="{Binding Path=BorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}" 
+                               HorizontalAlignment="Left"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Margin="0,5,0,0"
+                               Text="{Binding Path=Modificadores, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}}"
+                               Visibility="{Binding Path=Modificadores, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VentaProductoItem}}, Converter={StaticResource StringCollapse}}"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="MouseDown">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                Storyboard.TargetProperty="Background.Color" 
+                                                From="#01FFFFFF"
+                                                To="#ffa9a9" 
+                                                Duration="0:0:0.1" AutoReverse="True"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Border.Triggers>
+        </Border>
+    </Grid>
+
+</UserControl>

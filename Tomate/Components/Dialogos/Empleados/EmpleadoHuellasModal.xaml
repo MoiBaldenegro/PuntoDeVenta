@@ -1,0 +1,184 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Empleados.EmpleadoHuellasModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Empleados"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsExtras="clr-namespace:Tomate.Components.Extras"
+             d:DesignHeight="1600" d:DesignWidth="900">
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoHuellas" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="True"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   Panel.ZIndex="1"
+                                   TabIndex="1"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="700" Background="#01FFFFFF">
+                    <Border CornerRadius="20" Padding="20">
+                        <StackPanel Margin="0,120,0,0">
+                            <componentsExtras:ManoView x:Name="ManoView" OnSeleccionarDedo="Mano_OnSeleccionarDedo"/>
+                            
+                            <TextBlock Text="Registra huellas de acceso" 
+                                       FontSize="25"
+                                       Margin="0,20,0,30"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#333333"
+                                       FontFamily="{StaticResource RobotoBold}" />
+
+                            <StackPanel Name="ListadoNumeroDedo" Orientation="Horizontal" HorizontalAlignment="Center"
+                                        Margin="0,0,0,20"
+                                        Visibility="Hidden">
+                                <Border BorderBrush="#cccccc" 
+                                        Background="{Binding ContadorBackground[0]}"
+                                        CornerRadius="5" BorderThickness="1"
+                                        Width="60" Height="70"
+                                        Margin="3">
+                                    <materialDesign:PackIcon Kind="Fingerprint" 
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Center"
+                                                             Width="35"
+                                                             Height="35"
+                                                             Foreground="{Binding ContadorForeground[0]}"/>
+                                </Border>
+                                <Border BorderBrush="#cccccc" CornerRadius="5" BorderThickness="1"
+                                        Width="60" Height="70"
+                                        Background="{Binding ContadorBackground[1]}"
+                                        Margin="3">
+                                    <materialDesign:PackIcon Kind="Fingerprint" 
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Center"
+                                                             Width="35"
+                                                             Height="35"
+                                                             Foreground="{Binding ContadorForeground[1]}"/>
+                                </Border>
+                                <Border BorderBrush="#cccccc" CornerRadius="5" BorderThickness="1"
+                                        Width="60" Height="70"
+                                        Background="{Binding ContadorBackground[2]}"
+                                        Margin="3">
+                                    <materialDesign:PackIcon Kind="Fingerprint" 
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Center"
+                                                             Width="35"
+                                                             Height="35"
+                                                             Foreground="{Binding ContadorForeground[2]}"/>
+                                </Border>
+                                <Border BorderBrush="#cccccc" CornerRadius="5" BorderThickness="1"
+                                        Width="60" Height="70"
+                                        Background="{Binding ContadorBackground[3]}"
+                                        Margin="3">
+                                    <materialDesign:PackIcon Kind="Fingerprint" 
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Center"
+                                                             Width="35"
+                                                             Height="35"
+                                                             Foreground="{Binding ContadorForeground[3]}"/>
+                                </Border>
+                            </StackPanel>
+
+
+                            <Grid>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                               FontSize="15"
+                                               Foreground="Red"
+                                               Text="{Binding ErrorGeneral}" VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,-25"/>
+
+                                <Button Name="CancelarRegistroHuella" FontFamily="{StaticResource RobotoBold}"
+                                    Visibility="Hidden"
+                                    Foreground="#333333" FontSize="19" HorizontalAlignment="Stretch"
+                                    Width="240"
+                                    Height="75"
+                                        Focusable="False"
+                                    VerticalAlignment="Stretch" Cursor="Hand"
+                                    Click="CancelarRegistroHuella_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" 
+                                                Background="#FFFFFF"
+                                                    BorderBrush="#ccc"
+                                                    BorderThickness="1">
+                                                <TextBlock Text="Cancelar" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    From="#FFFFFF" To="#ffa9a9" 
+                                                                    Duration="0:0:0.1" 
+                                                                    AutoReverse="True"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </Grid>
+                            
+                            
+                        </StackPanel>
+                        
+                    </Border>
+
+                    <Button VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Cursor="Hand" Width="70" Height="70"
+                            Margin="0,-25,-25,0"
+                            Focusable="False"
+                            Click="BotonCerrarModal_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Name="Ellipse" Padding="10"
+                                        Background="#FFFFFF"
+                                        CornerRadius="50"
+                                        BorderThickness="1"
+                                        BorderBrush="#CCCCCC">
+                                    <Image Width="25" Height="25" 
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundModal" Visibility="Collapsed" 
+                    Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

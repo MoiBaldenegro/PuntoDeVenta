@@ -1,0 +1,248 @@
+﻿<UserControl x:Class="Tomate.Views.Tableros.DesactivarProductosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Views.Tableros" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsMenu="clr-namespace:Tomate.Components.Botones.Menu"
+             xmlns:componentsProductos="clr-namespace:Tomate.Components.Productos"
+             xmlns:componentsExtras="clr-namespace:Tomate.Components.Extras"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1200"
+             Background="#dddddd"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:StringCollapse x:Key="StringCollapse"/>
+    </UserControl.Resources>
+    <Grid>
+
+        <DockPanel Grid.Column="0">
+
+            <Border BorderBrush="#eeeeee"
+                    BorderThickness="0,1,0,0"
+                    DockPanel.Dock="Bottom">
+                <UniformGrid Columns="2" Rows="1" 
+                         Background="#FFFFFF">
+
+                    <componentsMenu:BotonMenuImagen Titulo="Aplicar" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_guardar_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="BotonGuardar_Click"/>
+
+                    <componentsMenu:BotonMenuImagen Titulo="Atrás" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_atras_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="BotonAtras_Click"/>
+
+                </UniformGrid>
+
+            </Border>
+
+            <Grid DockPanel.Dock="Top" >
+                <componentsExtras:Header Usuario="{Binding Usuario}">
+                    <Grid>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                            Height="60"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Center">
+                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#FFFFFF" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="30"
+                                       Text="Desactivar productos"/>
+                        </StackPanel>
+                    </Grid>
+                </componentsExtras:Header>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        BorderBrush="White"
+                        Background="White"
+                        BorderThickness="1,1,1,1">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top"
+                                Background="#D9D9D9"
+                                Margin="10"
+                                Padding="5,10">
+                            <TextBlock FontFamily="{StaticResource RobotoBold}" 
+                                       Foreground="#333333"
+                                       FontSize="13"
+                                       Margin="10,0,10,0"
+                                       VerticalAlignment="Center" 
+                                       TextWrapping="Wrap"
+                                       Text="Productos desactivados"/>
+                        </Border>
+
+                        <ListView Name="ProductosDesactivadosListado" 
+                                      Background="Transparent"
+                                      ItemsSource="{Binding ProductosDesactivados}"
+                                      ItemContainerStyle="{StaticResource ListView}"
+                                      AlternationCount="1000"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.PanningMode="Both"
+                                      ScrollViewer.CanContentScroll="False"
+                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback"
+                                      MouseLeftButtonUp="ActivarProducto_MouseLeftButtonUp">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Name="BorderBackground" Padding="15, 0" Background="#FFF"
+                                            Height="45"
+                                            Cursor="Hand">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon 
+                                                 Width="20" Height="20"
+                                                Margin="0,-2,0,0"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"
+                                                 Kind="Cancel"/>
+                                            <!--<Image Width="25"
+                                                   Height="25"
+                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                                    Source="/Resources/Iconos/ic_desactivar_productos.png"/>-->
+                                            <TextBlock FontFamily="{StaticResource Roboto}" 
+                                               Foreground="#333333"
+                                               FontSize="15"
+                                                       Margin="10,0,0,0"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" 
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               Text="{Binding Nombre}"/>
+                                        </StackPanel>
+
+                                        <Border.Triggers>
+                                            <EventTrigger RoutedEvent="MouseDown">
+                                                <EventTrigger.Actions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                        From="#FFFFFF" To="#ffa9a9" 
+                                                                        Duration="0:0:0.1" AutoReverse="True"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger.Actions>
+                                            </EventTrigger>
+                                        </Border.Triggers>
+                                    </Border>
+                                    
+                                    
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </DockPanel>
+
+                </Border>
+
+                <Grid Grid.Column="1"
+                      Margin="15,10,15,10">
+
+                    <ListView Name="ProductosListado"
+                              ItemsSource="{Binding Productos}"
+                              ItemContainerStyle="{StaticResource ListView}"
+                              AlternationCount="1000"
+                              ScrollViewer.PanningMode="Both"
+                              ScrollViewer.CanContentScroll="False"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+
+                                <componentsProductos:ProductoItem Index="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                                    Nombre="{Binding Nombre}"
+                                                                    Opacity="{Binding Opacity}"
+                                                                    Prohibido="{Binding Prohibido}"
+                                                                    Visibility="{Binding Path=Id, 
+                                                                    Converter={StaticResource StringCollapse}}"
+                                                                    Height="95"
+                                                                    OnClick="DesactivarProducto_OnClick"/>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="8" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+
+
+                    <ListView 
+                              VerticalAlignment="Bottom"
+                              Name="TablerosListado"
+                              ItemsSource="{Binding Tableros}"
+                              ItemContainerStyle="{StaticResource ListView}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Name="BorderBackground" Background="#fc5656" Height="75"
+                                        CornerRadius="0"
+                                        HorizontalAlignment="Stretch" 
+                                        Margin="1"
+                                        Padding="5,0"
+                                        Cursor="Hand"
+                                        MouseLeftButtonUp="SeleccionarTablero_MouseLeftButtonUp">
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                               Foreground="#FFFFFF" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               FontSize="15"
+                                               Text="{Binding Nombre}"/>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="MouseDown">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                        From="#fc5656" To="#ffa9a9" 
+                                                                        Duration="0:0:0.1" AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="2" Background="#FFFFFF" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+
+
+                    <Label Visibility="{Binding MensajeNoProductos}" FontFamily="{StaticResource Roboto}" 
+                           Foreground="#333"  FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,0,130"
+                           HorizontalAlignment="Center">
+                        <Label.Content>
+                            <AccessText TextWrapping="Wrap" 
+                                    TextAlignment="Center"
+                                    TextBlock.LineHeight="30" 
+                                    TextBlock.LineStackingStrategy="BlockLineHeight"
+                                    Text="Sin productos disponibles"/>
+                        </Label.Content>
+                    </Label>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>

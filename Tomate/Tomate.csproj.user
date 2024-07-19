@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\PC\Documents\proyectos\Tomate\Tomate\Properties\PublishProfiles\FolderProfile1.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Components\Dialogos\Empleados\EmpleadoDetalleModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Teclado\TecladoModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Teclado\TecladoNumeroModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Empleados\EmpleadoVerticalItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Extras\Header.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Extras\ManoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Productos\ProductoItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Productos\VentaProductoItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Mesas\AsignarMesasView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Ventas\VentaDetalleView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Empleados\EmpleadosView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InicioView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Ventas\ListadoVentasView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Components\Botones\Menu\BotonMenuImagen.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Teclado\TecladoBoton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Caja\FormasPagosItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Caja\MonedaItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Filtros\FiltrosEmpleadosModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\VentaNotaDetalleModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Caja\FormasPagosModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Caja\MovimientosEfectivoModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Filtros\FiltrosCuentasModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoCobroModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\ConfigurarModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Empleados\EmpleadoDetalleModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Empleados\EmpleadoHuellasModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoDescuentoModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\ProductoExtrasModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\SeleccionarVentaNotaModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\VentaNotasAsignarProductosModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\TransferirProductosModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\ProductoModificadoresModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\VentaTiposModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\CancelarModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\ProductoOpcionesModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Empleados\EmpleadoVerticalItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Extras\Header.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Extras\ManoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoNumeroModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Teclado\TecladoVerticalBoton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Teclado\TecladoImagenBoton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Menu\BotonMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Productos\ProductoItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Productos\VentaProductoItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Fonts\Fonts.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\General.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Caja\CajaArqueoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Caja\CajaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Cobro\CobroVentaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Mesas\AsignarMesasView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Tableros\DesactivarProductosView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Ventas\VentaDetalleView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Ventas\ListadoVentasView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Empleados\EmpleadosView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InicioView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

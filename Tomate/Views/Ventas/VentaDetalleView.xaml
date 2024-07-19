@@ -1,0 +1,578 @@
+﻿<UserControl x:Class="Tomate.Views.Ventas.VentaDetalleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Views.Ventas" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsBotonesTeclado="clr-namespace:Tomate.Components.Botones.Teclado"
+             xmlns:componentsMenu="clr-namespace:Tomate.Components.Botones.Menu"
+             xmlns:componentsDialogosVenta="clr-namespace:Tomate.Components.Dialogos.Venta"
+             xmlns:componentsDialogosVentaNotas="clr-namespace:Tomate.Components.Dialogos.Venta.Notas"
+             xmlns:componentsProductos="clr-namespace:Tomate.Components.Productos"
+             xmlns:componentsExtras="clr-namespace:Tomate.Components.Extras"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1200"
+             Background="#dddddd"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:StringCollapse x:Key="StringCollapse"/>
+    </UserControl.Resources>
+    <Grid>
+
+        <DockPanel Grid.Column="0">
+
+            <Border BorderBrush="#eeeeee"
+                    BorderThickness="0,1,0,0"
+                    DockPanel.Dock="Bottom">
+                <UniformGrid Columns="{Binding TotalBotones}" Rows="1" 
+                         Background="#FFFFFF">
+
+                    <componentsMenu:BotonMenuImagen Titulo="Imprimir"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_impresora_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="ImprimirVenta_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen x:Name="TipoCuentaBoton" Titulo="Tipo cuenta"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_tarjeta_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="TipoCuenta_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen x:Name="DescuentoBoton" Titulo="Descuento"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_porcentaje_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="Descuento_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen x:Name="DividirCuentaBoton" Titulo="Dividir cuenta"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_notas_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="DividirCuenta_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen Titulo="Comensales"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_comensales_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="NumeroPersonas_OnClick"/>
+
+
+                    <componentsMenu:BotonMenuImagen x:Name="TransferirCuentasBoton" Titulo="Transferir cuenta"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_transferir_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="TransferirCuentas_OnClick"/>
+
+
+                    <componentsMenu:BotonMenuImagen x:Name="TransferirProductosBoton" Titulo="Transferir productos"
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_transferir_productos_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="TransferirProductos_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen Titulo="Asignar nombre" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_nombre_mesa_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="AsignarNombre_OnClick"/>
+
+
+                    <componentsMenu:BotonMenuImagen Titulo="Comentarios" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_comentarios_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="AsignarObservaciones_OnClick"/>
+
+
+                    <componentsMenu:BotonMenuImagen x:Name="CancelarBoton" Titulo="Cancelar" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_cancelar_cuenta_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="CancelarCuenta_OnClick"/>
+
+                    <componentsMenu:BotonMenuImagen Titulo="Atrás" 
+                                                    Imagen="/Resources/Iconos/Nuevos/ic_atras_black.png"
+                                                    HeightImagen="20"
+                                                    OnClick="BotonAtras_Click"/>
+
+                </UniformGrid>
+
+            </Border>
+
+            <Grid DockPanel.Dock="Top" >
+                <componentsExtras:Header Usuario="{Binding Usuario}">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                            Height="60"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Center">
+
+                            <Grid Margin="0,0,10,0">
+                                <Border Height="40" MinWidth="50" Background="#00FFFFFF"
+                                    BorderThickness="1"
+                                    BorderBrush="#00FFFFFF"
+                                    VerticalAlignment="Center"
+                                    Padding="10,0,10,0"
+                                    CornerRadius="5">
+                                    <Grid>
+                                        <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#FFFFFF" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="25"
+                                       Text="{Binding Venta.NombreNumeroCuenta}" />
+
+                                        <materialDesign:PackIcon Width="15" Height="15" 
+                                                                 Margin="0,-5,-15,0"
+                                                                 Kind="PrinterOutline" VerticalAlignment="Top"
+                                                                 HorizontalAlignment="Right"
+                                                                 Foreground="{Binding Venta.ColorEstatus}"
+                                                                 Visibility="{Binding Path=Venta.TiempoImpresionTicket, Converter={StaticResource StringCollapse}}"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="#FFFFFF" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="15"
+                                       Text="{Binding Venta.UsuarioTitulo}"/>
+
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                       Foreground="#FFFFFF" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       Text="{Binding Venta.TituloFormato}"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Margin="850,0,0,0"
+                                    Width="300"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding Path=Venta.Observaciones, Converter={StaticResource StringCollapse}}">
+                            <TextBlock FontFamily="{StaticResource Roboto}" 
+                                       Text="Comentarios: " Foreground="#FFFFFF"/>
+                            <TextBlock FontFamily="{StaticResource Roboto}"
+                                       HorizontalAlignment="Stretch"
+                                       Text="{Binding Venta.Observaciones}" Foreground="#FFFFFF"/>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                </componentsExtras:Header>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        BorderBrush="White"
+                        Background="White"
+                        BorderThickness="1,1,1,1">
+
+                    <DockPanel>
+
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <Border BorderThickness="0,1,0,0" 
+                                    BorderBrush="#d5d5d5"
+                                    Padding="0,18,0,0">
+                            </Border>
+                            <StackPanel Visibility="{Binding Path=Venta.DescuentoTotalFormato, Converter={StaticResource StringCollapse}}">
+                                <Canvas Height="30" VerticalAlignment="Center">
+                                    <TextBlock Canvas.Left="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="Subtotal"/>
+
+                                    <TextBlock Canvas.Right="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777" 
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Venta.SubTotalFormato}"/>
+                                </Canvas>
+                                <Canvas Height="30" VerticalAlignment="Center"
+                                        Visibility="{Binding Path=Venta.DescuentoProductosFormato, Converter={StaticResource StringCollapse}}">
+                                    <TextBlock Canvas.Left="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="Descuento productos"/>
+
+                                    <TextBlock Canvas.Right="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777" 
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Venta.DescuentoProductosFormato}"/>
+                                </Canvas>
+                                <Canvas Height="30" VerticalAlignment="Center"
+                                        Visibility="{Binding Path=Venta.DescuentoFormato, Converter={StaticResource StringCollapse}}">
+                                    <TextBlock Canvas.Left="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Venta.DecuentoTexto}"/>
+
+                                    <TextBlock Canvas.Right="15"  
+                                               FontFamily="{StaticResource Roboto}"
+                                               Foreground="#777" 
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               Text="{Binding Venta.DescuentoFormato}"/>
+                                </Canvas>
+                            </StackPanel>
+                            
+
+                            
+                            <Canvas Height="40" VerticalAlignment="Center">
+                                <TextBlock Canvas.Left="15"  
+                                            FontFamily="{StaticResource RobotoBold}"
+                                            Foreground="#333333"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="Total"/>
+
+                                <TextBlock Canvas.Right="15"  
+                                            FontFamily="{StaticResource RobotoBold}"
+                                            Foreground="#333333" 
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="{Binding Venta.TotalFormato}"/>
+                            </Canvas>
+                            
+
+                            <Grid Margin="8,0,8,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                    <Button Name="BotonEnviarCuenta" Grid.Column="1" FontFamily="{StaticResource RobotoBold}"
+                                        Foreground="#FFFFFF" FontSize="19" HorizontalAlignment="Stretch"
+                                        Height="75"
+                                        Opacity="0.8"
+                                            VerticalAlignment="Stretch" Cursor="Hand"
+                                        Click="BotonEnviarCuenta_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="BorderBackground" Padding="0,10,0,10" 
+                                                Background="#fc5656">
+                                                    <TextBlock Text="{Binding TextoEnviar}" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                    Storyboard.TargetProperty="Background.Color" 
+                                                    From="#fc5656" To="#ffa9a9" 
+                                                    Duration="0:0:0.1" 
+                                                    AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                <Button Name="BotonLimpiarVenta" Grid.Column="0" FontFamily="{StaticResource RobotoBold}"
+                                        Foreground="#333333" FontSize="19" HorizontalAlignment="Stretch"
+                                        Height="75"
+                                            VerticalAlignment="Stretch" Cursor="Hand"
+                                        Click="LimpiarVenta_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="BorderBackground" Padding="0,10,0,10" 
+                                                    Background="#FFF"
+                                                BorderBrush="#cccccc"
+                                                    BorderThickness="1">
+                                                <TextBlock Text="Limpiar" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <EventTrigger.Actions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                    Storyboard.TargetProperty="Background.Color" 
+                                                                    From="#FFFFFF" To="#ffa9a9" 
+                                                                    Duration="0:0:0.1" 
+                                                                    AutoReverse="True"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger.Actions>
+                                                </EventTrigger>
+                                            </ControlTemplate.Triggers>
+
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </Grid>
+                        </StackPanel>
+
+
+
+                        <Border>
+
+                            <ListView Name="CuentaProductosListado" 
+                                      Background="Transparent"
+                                      xmlns:Utils="clr-namespace:Tomate.Utils"
+                                      ItemsSource="{Binding VentaProductos}"
+                                      AlternationCount="1000"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.PanningMode="Both"
+                                      ScrollViewer.CanContentScroll="False"
+                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback"
+                                      SelectionChanged="CuentaProductosListado_SelectionChanged">
+                                <ListView.Resources>
+                                    <Utils:StringEnable x:Key="StringEnable"/>
+                                    <Utils:StringEnableInvert x:Key="StringEnableInvert"/>
+                                    <Utils:StringOpacity x:Key="StringOpacity"/>
+                                </ListView.Resources>
+
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                        <!--<Setter Property="IsEnabled" 
+                                                Value="{Binding IsNotDeleted}"/>-->
+                                        <Setter Property="Focusable" 
+                                                Value="{Binding TerminalId, Converter={StaticResource StringEnableInvert}}"/>
+                                        <Setter Property="Foreground" 
+                                                Value="#333333"/>
+                                        <Setter Property="BorderBrush" 
+                                                Value="#999999"/>
+                                        <Setter Property="Background" Value="{Binding IsDisabledBackground}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                                                <Setter Property="Background" Value="#fc5656" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <componentsProductos:VentaProductoItem 
+                                                            Index="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                            Id="{Binding Id}"
+                                                            VentaProductoPadreId="{Binding VentaProductoPadreId}"
+                                                            Impimir="{Binding ImprimirTexto}"
+                                                            Cantidad="{Binding Cantidad}"
+                                                            TerminalId="{Binding TerminalId}"
+                                                            Importe="{Binding ImporteFormato}"
+                                                            SubTotal="{Binding SubTotalFormato}"
+                                                            Nombre="{Binding Nombre}"
+                                                            HoraUsuario="{Binding HoraUsuario}"
+                                                            Modificadores="{Binding MostrarModificadores}"
+                                                            NumeroOrden="{Binding NumeroOrdenCuenta}"
+                                                            NumeroCuentaOrigen="{Binding NumeroCuentaOrigen}"
+                                                            OnEditarCantidad="VentaProducto_OnEditarCantidad"
+                                                            OnEliminar="VentaProducto_OnEliminar"
+                                                            OnClick="VentaProductoItem_OnClick"
+                                                            Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                            Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                            BorderBrush="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                            Opacity="{Binding TerminalId, Converter={StaticResource StringOpacity}}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                    </DockPanel>
+                </Border>
+
+                <Grid Grid.Column="1"
+                      Margin="15,10,15,10">
+
+                    <ListView Name="ProductosListado"
+                              ItemsSource="{Binding Productos}"
+                              ItemContainerStyle="{StaticResource ListView}"
+                              AlternationCount="1000"
+                              ScrollViewer.PanningMode="Both"
+                              ScrollViewer.CanContentScroll="False"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+
+                                <componentsProductos:ProductoItem Index="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                                    Nombre="{Binding Nombre}"
+                                                                    Precio="{Binding PrecioFormato}"
+                                                                    Prohibido="{Binding Prohibido}"
+                                                                    Opacity="{Binding Opacity}"
+                                                                    Visibility="{Binding Path=Id, 
+                                                                    Converter={StaticResource StringCollapse}}"
+                                                                    Height="95"
+                                                                    OnClick="AgregarProducto_OnClick"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="8" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+
+
+                    <ListView 
+                              VerticalAlignment="Bottom"
+                              Name="TablerosListado"
+                              ItemsSource="{Binding Tableros}"
+                              ItemContainerStyle="{StaticResource ListView}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Name="BorderBackground" Background="#fc5656" Height="75"
+                                        CornerRadius="0"
+                                        HorizontalAlignment="Stretch" 
+                                        Margin="1"
+                                        Padding="5,0"
+                                        Cursor="Hand"
+                                        MouseLeftButtonUp="SeleccionarTablero_MouseLeftButtonUp">
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                               Foreground="#FFFFFF" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               FontSize="15"
+                                               Text="{Binding Nombre}"/>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="MouseDown">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                        From="#fc5656" To="#ffa9a9" 
+                                                                        Duration="0:0:0.1" AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="2" Background="#FFFFFF" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+
+                   
+                    <Label Visibility="{Binding MensajeNoProductos}" FontFamily="{StaticResource Roboto}" 
+                           Foreground="#333"  FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,0,130"
+                           HorizontalAlignment="Center">
+                        <Label.Content>
+                            <AccessText TextWrapping="Wrap" 
+                                    TextAlignment="Center"
+                                    TextBlock.LineHeight="30" 
+                                    TextBlock.LineStackingStrategy="BlockLineHeight"
+                                    Text="Sin productos disponibles"/>
+                        </Label.Content>
+                    </Label>
+
+
+
+                </Grid>
+                
+
+                <Border Grid.Column="2" Margin="0,0,0,0"
+                        Background="#FFFFFF"
+                        Padding="0,25">
+                    <UniformGrid Columns="1" Rows="11">
+
+                        <UniformGrid.Resources>
+                            <Style TargetType="Button" >
+                                <Setter Property="Margin" Value="0" />
+                            </Style>
+                        </UniformGrid.Resources>
+
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="0" ValorClick="0" OnClick="BotonCantidadProducto_OnClick" />
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="1" ValorClick="1" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="2" ValorClick="2" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="3" ValorClick="3" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="4" ValorClick="4" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="5" ValorClick="5" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="6" ValorClick="6" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="7" ValorClick="7" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="8" ValorClick="8" OnClick="BotonCantidadProducto_OnClick"/>
+                        <componentsBotonesTeclado:TecladoVerticalBoton Titulo="9" ValorClick="9" OnClick="BotonCantidadProducto_OnClick"/>
+
+                        <Button FontFamily="{StaticResource RobotoBold}"
+                                FontSize="25" Foreground="#333333"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Cursor="Hand"
+                                Click="BotonCantidadProductoCancelar_OnClick">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="Transparent" Padding="0">
+                                        <Grid>
+                                            <Rectangle Name="Ellipse" Fill="#FFFFFF"/>
+                                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"/>
+                                            <Image Width="15" Height="15"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Source="/Resources/Iconos/ic_close_button.png"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Fill.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+
+                            </Button.Template>
+                        </Button>
+
+                    </UniformGrid>
+
+                </Border>
+            </Grid>
+        </DockPanel>
+
+        <componentsDialogosVenta:ProductosOpcionesModal x:Name="ProductoOpcionesModal"/>
+        <componentsDialogosVenta:ProductoModificadoresModal x:Name="ProductoModificadoresModal"/>
+        <componentsDialogosVenta:ProductoExtrasModal x:Name="ProductoExtrasModal"/>
+        <componentsDialogosVenta:CancelarModal x:Name="CancelarModal" OnMotivo="CancelarModal_OnMotivo"/>
+        <componentsDialogosVenta:TransferirProductosModal x:Name="TransferirProductosModal"/>
+        <componentsDialogosVentaNotas:SeleccionarVentaNotaModal x:Name="SeleccionarVentaNotaModal"/>
+        <componentsDialogosVentaNotas:VentaNotasAsignarProductosModal x:Name="VentaNotasAsignarProductosModal"/>
+    </Grid>
+</UserControl>

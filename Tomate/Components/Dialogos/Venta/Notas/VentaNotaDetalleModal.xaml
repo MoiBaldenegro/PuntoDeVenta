@@ -1,0 +1,332 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Venta.Notas.VentaNotaDetalleModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Venta.Notas"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsProductos="clr-namespace:Tomate.Components.Productos"
+             d:DesignHeight="1600" d:DesignWidth="900"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:BoolHidden x:Key="BoolHidden"/>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoVentaDetalle" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="True"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="750" Background="#01FFFFFF">
+
+                    <Border Background="#f9f9f9" CornerRadius="15" BorderBrush="#ccc">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top"
+                                    Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                           Foreground="#333333"
+                                           FontSize="19"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Titulo}" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand" Width="65" Height="65"
+                                            Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                        Background="#FFFFFF"
+                                                        CornerRadius="50"
+                                                        BorderBrush="#CCCCCC">
+                                                    <Image Width="22" Height="22"  
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                            </Border>
+
+
+                            <Grid Height="500">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0">
+
+                                    <ListView Name="CuentaProductosListado" 
+                                      Background="Transparent"
+                                      xmlns:Utils="clr-namespace:Tomate.Utils"
+                                      ItemsSource="{Binding VentaProductos}"
+                                      AlternationCount="1000"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.PanningMode="Both"
+                                      ScrollViewer.CanContentScroll="False"
+                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+
+                                        <ItemsControl.ItemContainerStyle>
+                                            <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                            </Style>
+                                        </ItemsControl.ItemContainerStyle>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <componentsProductos:VentaProductoItem 
+                                                            Index="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                            Id="{Binding Id}"
+                                                            IsEnabled="False"
+                                                            VentaProductoPadreId="{Binding VentaProductoPadreId}"
+                                                            Impimir="{Binding ImprimirTexto}"
+                                                            Cantidad="{Binding Cantidad}"
+                                                            TerminalId="{Binding TerminalId}"
+                                                            Importe="{Binding ImporteFormato}"
+                                                            SubTotal="{Binding SubTotalFormato}"
+                                                            Nombre="{Binding Nombre}"
+                                                            HoraUsuario="{Binding HoraUsuario}"
+                                                            Modificadores="{Binding MostrarModificadores}"
+                                                            NumeroOrden="{Binding NumeroOrdenCuenta}"
+                                                            NumeroCuentaOrigen="{Binding NumeroCuentaOrigen}"
+                                                            Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                            Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                            BorderBrush="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Border>
+
+                                <Grid Grid.Column="1">
+                                    <Border BorderThickness="1,0,0,0" 
+                                                        BorderBrush="#d5d5d5" >
+                                        <DockPanel>
+                                            
+
+                                            <Border DockPanel.Dock="Bottom">
+                                                <StackPanel DockPanel.Dock="Bottom">
+                                                    <Border BorderThickness="0,1,0,0" 
+                                                        BorderBrush="#d5d5d5" 
+                                                        Padding="0,18,0,0">
+                                                    </Border>
+                                                    <StackPanel>
+                                                        <Canvas Height="30" VerticalAlignment="Center">
+                                                            <TextBlock Canvas.Left="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="Subtotal"/>
+
+                                                            <TextBlock Canvas.Right="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777" 
+                                                                   HorizontalAlignment="Right"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="{Binding VentaNota.SubtotalFormato}"/>
+                                                        </Canvas>
+                                                        <Canvas Height="30" VerticalAlignment="Center">
+                                                            <TextBlock Canvas.Left="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="Descuento"/>
+
+                                                            <TextBlock Canvas.Right="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777" 
+                                                                   HorizontalAlignment="Right"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="{Binding VentaNota.DescuentoFormato}"/>
+                                                        </Canvas>
+                                                        <Canvas Height="30" VerticalAlignment="Center">
+                                                            <TextBlock Canvas.Left="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="Propina"/>
+
+                                                            <TextBlock Canvas.Right="15"  
+                                                                   FontFamily="{StaticResource Roboto}"
+                                                                   Foreground="#777" 
+                                                                   HorizontalAlignment="Right"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="15"
+                                                                   Text="{Binding VentaNota.PropinaFormato}"/>
+                                                        </Canvas>
+                                                    </StackPanel>
+
+
+
+                                                    <Canvas Height="40" VerticalAlignment="Center">
+                                                        <TextBlock Canvas.Left="15"  
+                                                            FontFamily="{StaticResource RobotoBold}"
+                                                            Foreground="#333333"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="20"
+                                                            Text="Total"/>
+
+                                                        <TextBlock Canvas.Right="15"  
+                                                                FontFamily="{StaticResource RobotoBold}"
+                                                                Foreground="#333333" 
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="20"
+                                                                Text="{Binding VentaNota.TotalFormato}"/>
+                                                    </Canvas>
+
+                                                </StackPanel>
+                                            </Border>
+
+
+                                            <DockPanel>
+                                                <Border DockPanel.Dock="Top" 
+                                        VerticalAlignment="Top"
+                                        Padding="10,0"
+                                        BorderBrush="#ccc" BorderThickness="0,0,0,1">
+                                                    <Grid  Height="30">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="100"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="Forma de pago" 
+                                                               FontFamily="{StaticResource RobotoBold}"
+                                                               FontSize="15"
+                                                               VerticalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="1" Text="Propina" 
+                                                               FontFamily="{StaticResource RobotoBold}"
+                                                               FontSize="15"
+                                                               TextAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="2" Text="Pago" 
+                                                               FontFamily="{StaticResource RobotoBold}"
+                                                               FontSize="15"
+                                                               TextAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Grid>
+                                                    <ListView Name="VentaPagosListado" 
+                                                              Background="Transparent"
+                                                              ItemsSource="{Binding VentaPagos}"
+                                                              AlternationCount="1000"
+                                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                              ScrollViewer.PanningMode="Both"
+                                                              ScrollViewer.CanContentScroll="False"
+                                                              ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+                                                        <ItemsControl.ItemContainerStyle>
+                                                            <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                                            </Style>
+                                                        </ItemsControl.ItemContainerStyle>
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border Padding="10,20"
+                                                                        BorderBrush="#ccc" 
+                                                                        IsEnabled="False"
+                                                                        Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                        BorderThickness="0,0,0,1">
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="*"/>
+                                                                            <ColumnDefinition Width="100"/>
+                                                                            <ColumnDefinition Width="100"/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock Grid.Column="0" Text="{Binding FormaPago}" 
+                                                                                   FontFamily="{StaticResource RobotoBold}"
+                                                                                   FontSize="15"
+                                                                                   VerticalAlignment="Center"/>
+                                                                        <TextBlock Grid.Column="1" Text="{Binding PropinaFormato}" 
+                                                                                   FontFamily="{StaticResource RobotoBold}"
+                                                                                   FontSize="15"
+                                                                                   TextAlignment="Center"
+                                                                                   VerticalAlignment="Center"/>
+                                                                        <TextBlock Grid.Column="2" Text="{Binding ImporteFormato}" 
+                                                                                   FontFamily="{StaticResource RobotoBold}"
+                                                                                   FontSize="15"
+                                                                                   TextAlignment="Center"
+                                                                                   VerticalAlignment="Center"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+
+                                                    <Label Visibility="{Binding NoPagos}" FontFamily="{StaticResource Roboto}" 
+                                                            Foreground="#333"  FontSize="17"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center">
+                                                                            <Label.Content>
+                                                                                <AccessText TextWrapping="Wrap" 
+                                                                    TextAlignment="Center"
+                                                                    TextBlock.LineHeight="30" 
+                                                                    TextBlock.LineStackingStrategy="BlockLineHeight"
+                                                                    Text="Sin pagos disponibles"/>
+                                                        </Label.Content>
+                                                    </Label>
+                                                </Grid>
+
+
+
+                                            </DockPanel>
+                                        </DockPanel>
+                                    </Border>
+
+                                    
+
+                                </Grid>
+
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+    </Grid>
+    
+</UserControl>

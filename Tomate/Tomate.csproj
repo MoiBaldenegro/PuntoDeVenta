@@ -1,0 +1,528 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Imagenes\icono.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Title>Tomate</Title>
+    <Description>Punto de venta</Description>
+    <PackageIcon>Resources\Imagenes\icono.png</PackageIcon>
+    <AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(AssemblyFileVersion)</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Components\Dialogos\Cobro\**" />
+    <Compile Remove="Components\ViewModels\Cobro\**" />
+    <Compile Remove="Views\Jornada\**" />
+    <EmbeddedResource Remove="Components\Dialogos\Cobro\**" />
+    <EmbeddedResource Remove="Components\ViewModels\Cobro\**" />
+    <EmbeddedResource Remove="Views\Jornada\**" />
+    <None Remove="Components\Dialogos\Cobro\**" />
+    <None Remove="Components\ViewModels\Cobro\**" />
+    <None Remove="Views\Jornada\**" />
+    <Page Remove="Components\Dialogos\Cobro\**" />
+    <Page Remove="Components\ViewModels\Cobro\**" />
+    <Page Remove="Views\Jornada\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Roboto\Roboto Bold.ttf" />
+    <None Remove="Resources\Fonts\Roboto\Roboto Light.ttf" />
+    <None Remove="Resources\Fonts\Roboto\Roboto Regular.ttf" />
+    <None Remove="Resources\Iconos\ic_arqueo.png" />
+    <None Remove="Resources\Iconos\ic_atras.png" />
+    <None Remove="Resources\Iconos\ic_back.png" />
+    <None Remove="Resources\Iconos\ic_backspace.png" />
+    <None Remove="Resources\Iconos\ic_backspace_white.png" />
+    <None Remove="Resources\Iconos\ic_back_white.png" />
+    <None Remove="Resources\Iconos\ic_caja.png" />
+    <None Remove="Resources\Iconos\ic_check.png" />
+    <None Remove="Resources\Iconos\ic_check_green.png" />
+    <None Remove="Resources\Iconos\ic_check_white.png" />
+    <None Remove="Resources\Iconos\ic_close.png" />
+    <None Remove="Resources\Iconos\ic_close_button.png" />
+    <None Remove="Resources\Iconos\ic_close_button_red.png" />
+    <None Remove="Resources\Iconos\ic_close_button_white.png" />
+    <None Remove="Resources\Iconos\ic_close_white.png" />
+    <None Remove="Resources\Iconos\ic_enter.png" />
+    <None Remove="Resources\Iconos\ic_enter_1.png" />
+    <None Remove="Resources\Iconos\ic_enter_1_white.png" />
+    <None Remove="Resources\Iconos\ic_enter_2.png" />
+    <None Remove="Resources\Iconos\ic_enter_2_white.png" />
+    <None Remove="Resources\Iconos\ic_enter_white.png" />
+    <None Remove="Resources\Iconos\ic_entradas.png" />
+    <None Remove="Resources\Iconos\ic_left_arrow.png" />
+    <None Remove="Resources\Iconos\ic_left_arrow_red.png" />
+    <None Remove="Resources\Iconos\ic_left_arrow_white.png" />
+    <None Remove="Resources\Iconos\ic_minimizar.png" />
+    <None Remove="Resources\Iconos\ic_minus.png" />
+    <None Remove="Resources\Iconos\ic_right_arrow.png" />
+    <None Remove="Resources\Iconos\ic_salidas.png" />
+    <None Remove="Resources\Iconos\ic_smile.png" />
+    <None Remove="Resources\Iconos\ic_space.png" />
+    <None Remove="Resources\Iconos\ic_table.png" />
+    <None Remove="Resources\Iconos\ic_table_1.png" />
+    <None Remove="Resources\Iconos\ic_table_3.png" />
+    <None Remove="Resources\Iconos\ic_table_4.png" />
+    <None Remove="Resources\Iconos\ic_up_arrow.png" />
+    <None Remove="Resources\Iconos\ic_up_arrow_white.png" />
+    <None Remove="Resources\Iconos\ic_user.png" />
+    <None Remove="Resources\Iconos\ic_user_list.png" />
+    <None Remove="Resources\Iconos\ic_user_white.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_arqueo_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_atras_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_caja_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_cancelar_cuenta_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_candado_abierto_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_candado_abierto_white.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_candado_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_comensales_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_comentarios_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_configurar_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_desactivar_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_dinero_entradas_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_dinero_salidas_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_guardar_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_impresora_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_mesas_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_nombre_mesa_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_notas_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_porcentaje_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_reloj_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_salir_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_tarjeta_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_transferir_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_transferir_productos_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_usuarios_agregar_black.png" />
+    <None Remove="Resources\Iconos\Nuevos\ic_usuarios_black.png" />
+    <None Remove="Resources\Imagenes\icono.ico" />
+    <None Remove="Resources\Imagenes\print.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Roboto\Roboto Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Roboto\Roboto Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Roboto\Roboto Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\Iconos\ic_arqueo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_atras.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_backspace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_backspace_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_back_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_caja.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_check_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_check_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_close_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_close_button_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_close_button_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_close_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter_1_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter_2_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_enter_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_entradas.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_left_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_left_arrow_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_minimizar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_right_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_left_arrow_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_salidas.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_smile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_space.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_table_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_table_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_table_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_up_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_up_arrow_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_user_list.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\ic_user_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_candado_abierto_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_comensales_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_comentarios_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_nombre_mesa_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_transferir_productos_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_usuarios_agregar_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_arqueo_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_atras_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_caja_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_cancelar_cuenta_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_candado_abierto_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_candado_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_configurar_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_desactivar_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_dinero_entradas_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_guardar_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_impresora_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_mesas_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_notas_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_porcentaje_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_reloj_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_dinero_salidas_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_salir_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_tarjeta_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_transferir_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Iconos\Nuevos\ic_usuarios_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Imagenes\fondo_menu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Imagenes\icono.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Imagenes\icono.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Imagenes\logo_blanco.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Imagenes\logo_negro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.7.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
+    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
+    <PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.0.0" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DPFPDevNET">
+      <HintPath>Libs\DigitalPersona\SDK\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET">
+      <HintPath>Libs\DigitalPersona\SDK\DPFPEngNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPGuiNET">
+      <HintPath>Libs\DigitalPersona\SDK\DPFPGuiNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrNET">
+      <HintPath>Libs\DigitalPersona\SDK\DPFPShrNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPVerNET">
+      <HintPath>Libs\DigitalPersona\SDK\DPFPVerNET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Components\Botones\Menu\BotonMenuImagen.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Botones\Teclado\TecladoBoton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Caja\FormasPagosItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Caja\MonedaItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Filtros\FiltrosEmpleadosModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\Notas\VentaNotaDetalleModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Caja\FormasPagosModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Caja\MovimientosEfectivoModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Filtros\FiltrosCuentasModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Teclado\TecladoCobroModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\ConfigurarModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Empleados\EmpleadoHuellasModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Botones\Teclado\TecladoVerticalBoton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Botones\Teclado\TecladoImagenBoton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Botones\Menu\BotonMenu.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Teclado\TecladoDescuentoModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\ProductoExtrasModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\Notas\SeleccionarVentaNotaModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\Notas\VentaNotasAsignarProductosModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\TransferirProductosModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\ProductoModificadoresModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\VentaTiposModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\CancelarModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dialogos\Venta\ProductoOpcionesModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Caja\CajaArqueoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Caja\CajaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Cobro\CobroVentaView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Tableros\DesactivarProductosView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Components\Botones\Menu\BotonMenuImagen.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Botones\Teclado\TecladoBoton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Filtros\FiltrosEmpleadosModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\VentaNotaDetalleModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Caja\FormasPagosModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Caja\MovimientosEfectivoModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Filtros\FiltrosCuentasModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoCobroModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\ConfigurarModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Empleados\EmpleadoHuellasModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Teclado\TecladoImagenBoton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Botones\Menu\BotonMenu.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Teclado\TecladoDescuentoModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\ProductoExtrasModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\SeleccionarVentaNotaModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\Notas\VentaNotasAsignarProductosModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\TransferirProductosModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\ProductoModificadoresModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\VentaTiposModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Components\Dialogos\Venta\CancelarModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\General.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Imagenes\icono.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

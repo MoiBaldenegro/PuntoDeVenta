@@ -1,0 +1,230 @@
+﻿<UserControl x:Class="Tomate.Views.InicioView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Views" 
+             xmlns:componentsBotonTeclado="clr-namespace:Tomate.Components.Botones.Teclado"
+             xmlns:componentsExtras="clr-namespace:Tomate.Components.Extras"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1200"
+             Loaded="Inicio_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Background>
+            <SolidColorBrush Color="#000000" />
+            <!--<ImageBrush ImageSource="/Resources/Imagenes/fondo_menu7.jpg"/>-->
+        </Grid.Background>
+
+
+        <WrapPanel Grid.Column="0" HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   Margin="0">
+
+            <Button HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Cursor="Hand"
+                    Width="50"
+                    Height="50"
+                    Click="BotonMinimizar_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <materialDesign:Card Background="Transparent">
+                            <Image Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Resources/Iconos/ic_minimizar.png"/>
+                        </materialDesign:Card>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Cursor="Hand"
+                    Width="50"
+                    Height="50"
+                    Click="BotonCerrar_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <materialDesign:Card Background="Transparent"
+                                             Padding="15">
+                            <Image Width="20" Height="20" 
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Resources/Iconos/ic_close_button_white.png"/>
+                        </materialDesign:Card>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </WrapPanel>
+
+        <DockPanel Grid.Column="0"
+                   LastChildFill="False"
+                   HorizontalAlignment="Stretch">
+
+            <TextBlock Text="{Binding FechaHora}" 
+                       FontSize="20"
+                       DockPanel.Dock="Top"
+                       Margin="40,20,0,30"
+                       Foreground="#FFFFFF"
+                       FontFamily="{StaticResource RobotoBold}" />
+        </DockPanel>
+
+        <DockPanel Grid.Column="0"
+                   LastChildFill="False"
+                   HorizontalAlignment="Stretch">
+
+            <TextBlock Text="{Binding VersionSoftware}" 
+                       FontSize="20"
+                       DockPanel.Dock="Bottom"
+                       Margin="40,0,0,30"
+                       Foreground="#FFFFFF"
+                       FontFamily="{StaticResource RobotoBold}" />
+        </DockPanel>
+
+        <DockPanel Grid.Column="0"
+                   MaxWidth="1200"
+                   LastChildFill="False"
+                   HorizontalAlignment="Stretch">
+
+            
+
+            <StackPanel DockPanel.Dock="Left"
+                        VerticalAlignment="Center"
+                        Margin="20,0,20,0"
+                        HorizontalAlignment="Stretch">
+                <Image Width="600" 
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/Resources/Imagenes/logo_blanco.png"/>
+
+            </StackPanel>
+
+
+            <Grid DockPanel.Dock="Right"
+                  Margin="0,-80,40,0"
+                  VerticalAlignment="Center">
+
+                <Grid.Resources >
+                    <Style TargetType="Button" >
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="120"/>
+                </Grid.RowDefinitions>
+
+
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="1" Grid.Column="0"
+                                          Titulo="1"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="1"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="1" Grid.Column="1"
+                                          Titulo="2"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="2"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="1" Grid.Column="2"
+                                          Titulo="3"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="3"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="2" Grid.Column="0"
+                                          Titulo="4"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="4"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="2" Grid.Column="1"
+                                          Titulo="5"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="5"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="2" Grid.Column="2"
+                                          Titulo="6"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="6"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="3" Grid.Column="0"
+                                          Titulo="7"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="7"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="3" Grid.Column="1"
+                                          Titulo="8"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="8"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="3" Grid.Column="2"
+                                          Titulo="8"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="8"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="3" Grid.Column="2"
+                                          Titulo="9"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="9"/>
+
+                <componentsBotonTeclado:TecladoImagenBoton Grid.Row="4" Grid.Column="0"
+                                                WidthImagen="25"
+                                                HeightImagen="25"
+                                                OnClick="BotonBorrar_Click"
+                                                Imagen="/Resources/Iconos/ic_close_button_red.png"/>
+
+                <componentsBotonTeclado:TecladoBoton Grid.Row="4" Grid.Column="1"
+                                          Titulo="0"
+                                          OnClick="BotonTable_Click"
+                                          ValorClick="0"/>
+
+                <componentsBotonTeclado:TecladoImagenBoton Grid.Row="4" Grid.Column="2"
+                                                WidthImagen="30"
+                                                HeightImagen="30"
+                                                OnClick="BotonEnter_Click"
+                                                Imagen="/Resources/Iconos/ic_check_green.png"/>
+
+                <TextBlock Name="TextoTablero" Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Text="{Binding MensajeTablero}" 
+                           FontSize="25"
+                           Margin="0,0,0,50"
+                           Foreground="#FFFFFF"
+                           HorizontalAlignment="Center"
+                           FontFamily="{StaticResource Roboto}"
+                           VerticalAlignment="Center" />
+
+                <ProgressBar Name="Loader" Grid.Row="0" Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Foreground="#FFFFFF"
+                             HorizontalAlignment="Center"
+                             Margin="0,-10,0,50"
+                             Width="30"
+                             Visibility="Hidden"
+                             IsIndeterminate="True"
+                             Value="0" />
+
+            </Grid>
+
+
+        </DockPanel>
+
+        <Grid VerticalAlignment="Top" Background="Red">
+            <componentsExtras:Header />
+
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>

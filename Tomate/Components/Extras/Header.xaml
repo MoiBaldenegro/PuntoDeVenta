@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="Tomate.Components.Extras.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Extras"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="Header_Loaded"
+             Unloaded="Header_Unloaded"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:StringCollapse x:Key="StringCollapse"/>
+    </UserControl.Resources>
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <Grid Name="InfoUsuario"
+                  Visibility="{Binding Path=Usuario.Id, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Converter={StaticResource StringCollapse}}"
+                  Height="60">
+                <DockPanel LastChildFill="False"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Stretch"
+                       Background="#000000">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <Button HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Cursor="Hand" Width="50" Height="60"
+                            Click="BotonMinimizar_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <materialDesign:Card Background="Transparent">
+                                        <Image Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Resources/Iconos/ic_minimizar.png"/>
+                                    </materialDesign:Card>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Cursor="Hand" Width="50" Height="60"
+                            Click="BotonCerrar_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <materialDesign:Card Background="Transparent"
+                                             Padding="15">
+                                        <Image Width="20" Height="20" 
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Resources/Iconos/ic_close_button_white.png"/>
+                                    </materialDesign:Card>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" 
+                             VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                        <Border CornerRadius="70"
+                            Margin="10,0,8,0"
+                            Background="Transparent">
+
+                            <Image Width="40" Height="40"
+                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                       Source="/Resources/Iconos/ic_user_list.png"/>
+
+                        </Border>
+
+
+                        <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center"
+                                       FontFamily="{StaticResource RobotoBold}"
+                                       Foreground="White" FontSize="16"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding Path=Usuario.CodigoAlias, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}}" />
+
+                            <TextBlock VerticalAlignment="Center"
+                                   Margin="0,-2,0,0"
+                                           HorizontalAlignment="Left"
+                                       FontFamily="{StaticResource Roboto}"
+                                       Foreground="White" FontSize="13"
+                                       Text="{Binding Path=Usuario.PerfilNombre, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}}" />
+                        </StackPanel>
+
+                        <StackPanel VerticalAlignment="center"
+                                    Margin="20,0,0,0">
+                            <TextBlock Text="{Binding Path=Hora, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}}" 
+                                   FontSize="16"
+                                   Foreground="#ffffff"
+                                   FontFamily="{StaticResource RobotoBold}" />
+                            <TextBlock Text="{Binding Path=Fecha, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}}" 
+                                   FontSize="13"
+                                   Foreground="#ffffff"
+                                   FontFamily="{StaticResource Roboto}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+                
+                <DockPanel HorizontalAlignment="Center">
+                    <ContentPresenter />
+                </DockPanel>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

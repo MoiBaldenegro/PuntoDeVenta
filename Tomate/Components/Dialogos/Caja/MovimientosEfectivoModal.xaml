@@ -1,0 +1,303 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Caja.MovimientosEfectivoModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Caja"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsMenu="clr-namespace:Tomate.Components.Botones.Menu"
+             d:DesignHeight="1600" d:DesignWidth="900"
+             xmlns:componentsDialogosTeclado="clr-namespace:Tomate.Components.Dialogos.Teclado"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:BoolHidden x:Key="BoolHidden"/>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoEntradasSalidas" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="True"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="920" Background="#01FFFFFF">
+
+                    <Border Background="#f9f9f9" CornerRadius="15" BorderBrush="#ccc">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top"
+                                    Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                           Foreground="#333333"
+                                           FontSize="19"
+                                           VerticalAlignment="Center"
+                                           Text="Entradas / Salidas efectivo" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand" Width="65" Height="65"
+                                            Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                        Background="#FFFFFF"
+                                                        CornerRadius="50"
+                                                        BorderBrush="#CCCCCC">
+                                                    <Image Width="22" Height="22"  
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                            </Border>
+
+                            <Border BorderBrush="#f6f6f6"
+                                    BorderThickness="0,1,0,0"
+                                    CornerRadius="0,0,15,15"
+                                    Background="#FFF"
+                                    DockPanel.Dock="Bottom">
+                                <UniformGrid Columns="2" Rows="1">
+
+                                    <componentsMenu:BotonMenuImagen x:Name="EntradaBoton" 
+                                                                    Titulo="Entradas"
+                                                                    Imagen="/Resources/Iconos/Nuevos/ic_dinero_entradas_black.png"
+                                                                    HeightImagen="20"
+                                                                    Background="#00FFFFFF"
+                                                                    OnClick="EntradaEfectivo_OnClick"/>
+
+                                    <componentsMenu:BotonMenuImagen x:Name="SalidaBoton" 
+                                                                    Titulo="Salidas"
+                                                                    Imagen="/Resources/Iconos/Nuevos/ic_dinero_salidas_black.png"
+                                                                    HeightImagen="20"
+                                                                    Background="#00FFFFFF"
+                                                                    OnClick="SalidaEfectivo_OnClick"/>
+                                </UniformGrid>
+
+                            </Border>
+
+
+                            <Grid Height="500">
+                                <Border Background="#e4e4e4"
+                                            Margin="0,0,0,0"
+                                            Padding="10,0"
+                                        VerticalAlignment="Top"
+                                            Height="35">
+                                    <Grid Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Folio"/>
+                                        </Border>
+                                        <Border Grid.Column="1">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Usuario"/>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Descripción"/>
+                                        </Border>
+                                        <Border Grid.Column="3">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Importe"/>
+                                        </Border>
+                                        <Border Grid.Column="4">
+                                            <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Hora"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                <ListView Name="MovimientosListado" 
+                                          Margin="0,40,0,0"
+                                                      Background="Transparent"
+                                                      ItemsSource="{Binding Movimientos}"
+                                                      AlternationCount="1000"
+                                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                      ScrollViewer.PanningMode="Both"
+                                                      ScrollViewer.CanContentScroll="False"
+                                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                            <!--<Setter Property="IsSelected" Value="{Binding Seleccionado}"/>
+                                            <Setter Property="Focusable" Value="false"/>
+                                            <Setter Property="Foreground" Value="#333333"/>
+                                            <Setter Property="BorderBrush" Value="#999999"/>
+                                            <Setter Property="Background" Value="#FFFFFF" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Foreground" Value="#FFFFFF" />
+                                                    <Setter Property="BorderBrush" Value="#FFFFFF" />
+                                                    <Setter Property="Background" Value="#fc5656" />
+                                                </Trigger>
+                                            </Style.Triggers>-->
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#fff"
+                                            Margin="0,0,0,10"
+                                            Padding="10,0"
+                                        VerticalAlignment="Top"
+                                            Height="50">
+                                                <Grid Margin="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="15"
+                                                           Text="{Binding Folio}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="1">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="15"
+                                                           Text="{Binding Usuario.CodigoAlias}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="2">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="15"
+                                                           Text="{Binding Descripcion}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="3">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="{Binding ColorImporte}"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="15"
+                                                           Text="{Binding ImporteFormato}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="4">
+                                                        <TextBlock FontFamily="{StaticResource Roboto}"
+                                                           Foreground="#333333"           
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           FontSize="15"
+                                                           Text="{Binding CreatedAtFormato}"/>
+                                                    </Border>
+                                                    <Border Grid.Column="5">
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                            <Border Width="50" Background="#FFF"
+                                                                    Cursor="Hand"
+                                                                    Visibility="Collapsed"
+                                                                     MouseLeftButtonUp="MovimientoEditar_MouseLeftButtonUp">
+                                                                <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                                     HorizontalAlignment="Center"
+                                                                     Foreground="#333"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     Kind="PencilOutline"/>
+                                                            </Border>
+                                                            <Border Width="50" Background="#FFF"
+                                                                    Cursor="Hand"
+                                                                    Visibility="{Binding Editable}"
+                                                                    MouseLeftButtonUp="MovimientoEliminar_MouseLeftButtonUp">
+                                                                <materialDesign:PackIcon VerticalAlignment="Center" 
+                                                                     HorizontalAlignment="Center"
+                                                                     Foreground="#333"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     Kind="DeleteOutline"/>
+                                                            </Border>
+                                                        </StackPanel>
+                                                        
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <TextBlock FontFamily="{StaticResource Roboto}"
+                                        Foreground="#333333"           
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Visibility="{Binding NoMovimientos}"
+                                        Text="No hay movimientos"/>
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+        <componentsDialogosTeclado:TecladoCobroModal x:Name="TecladoCobroModal"/>
+    </Grid>
+    
+</UserControl>

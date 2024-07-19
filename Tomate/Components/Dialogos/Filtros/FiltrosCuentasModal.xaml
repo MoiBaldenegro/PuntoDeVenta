@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Filtros.FiltrosCuentasModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Filtros"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="1600" d:DesignWidth="900">
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoFiltrosCuentas" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="True"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="420" Background="#01FFFFFF">
+
+                    <Border Background="#f9f9f9" CornerRadius="15" BorderBrush="#ccc">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top"
+                                    Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <TextBlock x:Name="TituloModal" FontFamily="{StaticResource Roboto}"
+                                           Foreground="#333333"
+                                           FontSize="22"
+                                           VerticalAlignment="Center"
+                                           Text="Filtrar cuentas" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Cursor="Hand" Width="65" Height="65"
+                                        Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                    Background="Transparent"
+                                                    CornerRadius="50">
+                                                    <Image Width="22" Height="22" 
+                                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                                       Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            
+                               
+                            </Border>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+         
+                                <Border Grid.Column="0" Grid.Row="0">
+                                    <DockPanel>
+
+                                        <Grid>
+                                            <StackPanel>
+                                                <Border Padding="40,20">
+                                                    <ComboBox Name="VentasTiposCombobox" FontFamily="{StaticResource Roboto}"
+                                                              Style="{StaticResource MaterialDesignFilledComboBox}"
+                                                              materialDesign:HintAssist.Hint="Tipos de venta"
+                                                              FontSize="20"
+                                                              Background="Transparent"
+                                                              Focusable="False"
+                                                              IsReadOnly="True"
+                                                              Padding="0,0,0,5"
+                                                              Cursor="Hand">
+                                                        <ComboBoxItem IsSelected="True">Todas</ComboBoxItem>
+                                                        <ComboBoxItem>Comedor</ComboBoxItem>
+                                                    </ComboBox>
+                                                </Border>
+                                                
+                                                <Border Padding="40,20">
+                                                    <ComboBox Name="UsuariosCombobox" FontFamily="{StaticResource Roboto}"
+                                                              Style="{StaticResource MaterialDesignFilledComboBox}"
+                                                              materialDesign:HintAssist.Hint="Empleado"
+                                                              FontSize="20"
+                                                              Background="Transparent"
+                                                              Focusable="False"
+                                                              IsReadOnly="True"
+                                                              Padding="0,0,0,5"
+                                                              Cursor="Hand">
+                                                    </ComboBox>
+                                                </Border>
+
+                                                <Border Padding="40,20">
+                                                    <ComboBox Name="OrdenarCombobox" FontFamily="{StaticResource Roboto}"
+                                                              Style="{StaticResource MaterialDesignFilledComboBox}"
+                                                              materialDesign:HintAssist.Hint="Ordenar por"
+                                                              FontSize="20"
+                                                              Background="Transparent"
+                                                              Focusable="False"
+                                                              IsReadOnly="True"
+                                                              Padding="0,0,0,5"
+                                                              Cursor="Hand">
+                                                    </ComboBox>
+                                                </Border>
+
+                                                <Border Padding="40,20,40,40">
+                                                    <Button FontFamily="{StaticResource RobotoBold}"
+                                                            Foreground="#FFFFFF" 
+                                                            FontSize="18" HorizontalAlignment="Stretch"
+                                                            Height="55"
+                                                            VerticalAlignment="Stretch" Cursor="Hand"
+                                                            Click="AplicarFiltros_Click">
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Name="BorderBackground" Padding="0,10,0,10"
+                                                                        Background="#fc5656">
+                                                                    <TextBlock Text="APLICAR" 
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"/>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                                        <EventTrigger.Actions>
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <ColorAnimation Storyboard.TargetName="BorderBackground"  
+                                                                                        Storyboard.TargetProperty="Background.Color" 
+                                                                                        From="#fc5656" To="#ffa9a9" 
+                                                                                        Duration="0:0:0.1" 
+                                                                                        AutoReverse="True"/>
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </EventTrigger.Actions>
+                                                                    </EventTrigger>
+                                                                </ControlTemplate.Triggers>
+
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+                                                </Border>
+                                                
+                                            </StackPanel>
+                                            
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+
+
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

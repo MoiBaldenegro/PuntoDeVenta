@@ -1,0 +1,318 @@
+﻿<UserControl x:Class="Tomate.Components.Dialogos.Venta.Notas.VentaNotasAsignarProductosModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tomate.Components.Dialogos.Venta.Notas"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:componentsProductos="clr-namespace:Tomate.Components.Productos"
+             xmlns:componentsMenu="clr-namespace:Tomate.Components.Botones.Menu"
+             d:DesignHeight="1600" d:DesignWidth="900"
+             xmlns:Utils="clr-namespace:Tomate.Utils">
+    <UserControl.Resources>
+        <Utils:BoolHidden x:Key="BoolHidden"/>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:DialogHost Name="DialogoSeleccionarNotas" 
+                                   Identifier="RootDialog"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   materialDesign:TransitionAssist.DisableTransitions="True"
+                                   materialDesign:ElevationAssist.Elevation="Dp0"
+                                   CloseOnClickAway="True"
+                                   OverlayBackground="Transparent"
+                                   DialogBackground="Transparent"
+                                   DialogClosed="DialogoTeclado_DialogClosed"
+                                   DialogOpened="DialogoTeclado_DialogOpened">
+
+
+
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="920" Background="#01FFFFFF">
+
+                    <Border Background="#f9f9f9" CornerRadius="15" BorderBrush="#ccc">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#333333" Opacity="0.2" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top"
+                                    Height="65"
+                                    Background="#FFFFFF"
+                                    CornerRadius="15,15,0,0"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <TextBlock FontFamily="{StaticResource RobotoBold}"
+                                           Foreground="#333333"
+                                           FontSize="19"
+                                           VerticalAlignment="Center"
+                                           Text="Asignar número de nota" HorizontalAlignment="Center"/>
+
+                                    <Button Name="BotonCerrar" VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand" Width="65" Height="65"
+                                            Click="BotonCerrarModal_Click">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Name="Ellipse" Padding="10"
+                                                        Background="#FFFFFF"
+                                                        CornerRadius="50"
+                                                        BorderBrush="#CCCCCC">
+                                                    <Image Width="22" Height="22"  
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           Source="/Resources/Iconos/ic_close_button.png"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <EventTrigger RoutedEvent="Button.Click">
+                                                        <EventTrigger.Actions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Storyboard.TargetName="Ellipse"  
+                                                                Storyboard.TargetProperty="Background.Color" 
+                                                                From="#FFFFFF" To="#ffa9a9" 
+                                                                Duration="0:0:0.1" 
+                                                                AutoReverse="True"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger.Actions>
+                                                    </EventTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                            </Border>
+
+                            <Border BorderBrush="#f6f6f6"
+                                    BorderThickness="0,1,0,0"
+                                    CornerRadius="0,0,15,15"
+                                    Background="#FFF"
+                                    DockPanel.Dock="Bottom">
+                                <UniformGrid Columns="3" Rows="1">
+                                    <componentsMenu:BotonMenu Titulo="Revertir" Icono="Restore" 
+                                                              OnClick="RevertirMovimiento_OnClick"
+                                                              Background="#00ffffff"/>
+                                    <componentsMenu:BotonMenu Titulo="Número notas" Icono="StickerPlusOutline" 
+                                                              OnClick="NumeroNotas_OnClick"/>
+                                    
+
+                                    <componentsMenu:BotonMenuImagen x:Name="BotonGuardar" Titulo="Guardar" 
+                                                                    Imagen="/Resources/Iconos/Nuevos/ic_guardar_black.png"
+                                                                    Background="#00ffffff"
+                                                                    HeightImagen="20"
+                                                                    OnClick="GuardarProductos_Click"/>
+
+                                    <Border Name="Loader" Visibility="Collapsed">
+                                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                     Foreground="#333"
+                                                     HorizontalAlignment="Center"
+                                                     Width="20"
+                                                     Visibility="Visible"
+                                                     IsIndeterminate="True"
+                                                     Value="0" />
+                                    </Border>
+                                </UniformGrid>
+
+                            </Border>
+
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="500"/>
+                                </Grid.RowDefinitions>
+
+
+                                <Border Grid.Column="0" Grid.Row="0"
+                                    Background="Transparent"
+                                    BorderBrush="#f6f6f6"
+                                    BorderThickness="0,0,1,0">
+                                    <DockPanel>
+                                        <Grid>
+
+                                            <ListView Name="ProductosListado" 
+                                                      Background="Transparent"
+                                                      ItemsSource="{Binding VentaProductos}"
+                                                      AlternationCount="1000"
+                                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                      ScrollViewer.PanningMode="Both"
+                                                      ScrollViewer.CanContentScroll="False"
+                                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback">
+
+                                                <ItemsControl.ItemContainerStyle>
+                                                    <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                                        <Setter Property="IsSelected" Value="{Binding Seleccionado}"/>
+                                                        <Setter Property="Focusable" Value="false"/>
+                                                        <Setter Property="Foreground" Value="#333333"/>
+                                                        <Setter Property="BorderBrush" Value="#999999"/>
+                                                        <Setter Property="Background" Value="#FFFFFF" />
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                                                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                                                                <Setter Property="Background" Value="#fc5656" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ItemsControl.ItemContainerStyle>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <componentsProductos:VentaProductoItem 
+                                                                Index="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                                Id="{Binding Id}"
+                                                                OnClick="VentaProductoItem_OnClick"
+                                                                VentaProductoPadreId="{Binding VentaProductoPadreId}"
+                                                                TerminalId="{Binding NumeroNotaTexto}"
+                                                                Cantidad="{Binding Cantidad}"
+                                                                Importe="{Binding ImporteFormato}"
+                                                                Nombre="{Binding Nombre}"
+                                                                Modificadores="{Binding MostrarModificadores}"
+                                                                NumeroNota="{Binding NumeroNotaTexto}"
+                                                                Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                BorderBrush="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"/>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </Grid>
+
+                                    </DockPanel>
+
+                                </Border>
+
+                                <Border Grid.Column="1" Grid.Row="0"
+                                    Background="Transparent"
+                                    BorderBrush="#ccc"
+                                    BorderThickness="1,0,0,0">
+                                    <DockPanel>
+
+                                        <Grid>
+                                            <ListView Name="NotasListado" 
+                                                      Background="Transparent"
+                                                      ItemsSource="{Binding VentaNotas}"
+                                                      VirtualizingStackPanel.IsVirtualizing="True"
+                                                      VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                      VerticalAlignment="Top"
+                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                      ScrollViewer.PanningMode="Both"
+                                                      SelectionMode="Single"
+                                                      ScrollViewer.CanContentScroll="False"
+                                                      ScrollViewer.ManipulationBoundaryFeedback="ScrollViewer_ManipulationBoundaryFeedback"
+                                                      SelectionChanged="NotasListado_SelectionChanged">
+
+                                                <ItemsControl.ItemContainerStyle>
+                                                    <Style BasedOn="{StaticResource ListView}" TargetType="{x:Type ListViewItem}">
+                                                        <Setter Property="Foreground" Value="{Binding Foreground}"/>
+                                                        <Setter Property="BorderBrush" Value="#777777"/>
+                                                        <Setter Property="Background" Value="#FFFFFF" />
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                                                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                                                                <Setter Property="Background" Value="#fc5656" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ItemsControl.ItemContainerStyle>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" 
+                                                                BorderBrush="#f6f6f6"
+                                                                BorderThickness="1"
+                                                                VerticalAlignment="Top"
+                                                                Margin="5"
+                                                                Height="130"
+                                                                Cursor="Hand">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="#333333" Opacity="0.1" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <DockPanel>
+                                                                <StackPanel DockPanel.Dock="Bottom" >
+                                                                    <TextBlock 
+                                                                           HorizontalAlignment="Center"
+                                                                           Margin="0,0,0,0"
+                                                                           Foreground="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                           FontFamily="{StaticResource Roboto}" 
+                                                                           FontSize="14"
+                                                                           Text="{Binding TotalFormato}"/>
+
+                                                                    <TextBlock 
+                                                                           HorizontalAlignment="Center"
+                                                                           Margin="0,2,0,10"
+                                                                           Foreground="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                           Visibility="{Binding IsPagada, Converter={StaticResource BoolHidden}}"
+                                                                           FontFamily="{StaticResource Roboto}" 
+                                                                           FontSize="11"
+                                                                           Text="Pagada"/>
+                                                                </StackPanel>
+
+                                                                <Border>
+                                                                    <TextBlock HorizontalAlignment="Center"
+                                                                               VerticalAlignment="Center"
+                                                                               FontFamily="{StaticResource Roboto}" 
+                                                                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                               FontSize="45"
+                                                                               Margin="0,15,0,0"
+                                                                               Text="{Binding NumeroNota}"/>
+                                                                </Border>
+                                                            </DockPanel>
+                                                        </Border>
+
+                                                        <!--<Border Background="" 
+                                                                BorderBrush="#f6f6f6" BorderThickness="1"
+                                                                VerticalAlignment="Top"
+                                                                Height="120" 
+                                                                Margin="5"
+                                                                Cursor="Hand">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="#333333" Opacity="0.1" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <DockPanel >
+                                                                <TextBlock DockPanel.Dock="Bottom" 
+                                                                           HorizontalAlignment="Center"
+                                                                           Margin="0,0,0,15"
+                                                                           FontSize="14"
+                                                                           Foreground="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                           FontFamily="{StaticResource Roboto}" 
+                                                                           Text="{Binding TotalFormato}"/>
+                                                                <Border>
+                                                                    <TextBlock HorizontalAlignment="Center"
+                                                                               VerticalAlignment="Center"
+                                                                               FontFamily="{StaticResource Roboto}" 
+                                                                               Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                               FontSize="45"
+                                                                               Margin="0,15,0,0"
+                                                                               Text="{Binding Numero}"/>
+                                                                </Border>
+                                                            </DockPanel>
+                                                        </Border>-->
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <UniformGrid Columns="4" Background="Transparent" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                            </ListView>
+                                        </Grid>
+
+                                    </DockPanel>
+                                </Border>
+
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+            <Border Name="BackgroundDialogo" Visibility="Collapsed" Background="White" Opacity="0.6"></Border>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>
